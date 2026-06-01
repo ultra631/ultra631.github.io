@@ -1,1932 +1,2028 @@
 <!DOCTYPE html>
-<html lang="fr-CA">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LCHQ — Saison 6 | Stats officielles</title>
-<meta name="description" content="Statistiques officielles de la LCHQ — Ligue de hockey World of Chel sur NHL 26">
-<script>if('serviceWorker'in navigator){navigator.serviceWorker.getRegistrations().then(r=>{r.forEach(reg=>reg.unregister())});
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #111118;
-    --bg-card: #16161f;
-    --bg-card-hover: #1c1c28;
-    --bg-elevated: #1f1f2c;
-    --border: #2a2a3a;
-    --border-bright: #3a3a4f;
-    --red: #e63946;
-    --red-bright: #ff4757;
-    --red-dark: #c1121f;
-    --red-glow: rgba(230, 57, 70, 0.4);
-    --text-primary: #ffffff;
-    --text-secondary: #b8b8c8;
-    --text-tertiary: #7a7a8c;
-    --gold: #ffb81c;
-    --green: #4ade80;
-    --orange: #fb923c;
-    --nhl-color: #003e7e;
-    --lhjmq-color: #c8102e;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-  body::before {
-    content: '';
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(230, 57, 70, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 85% 80%, rgba(193, 18, 31, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-
-  /* HEADER */
-  header {
-    background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 2px solid var(--red);
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
-  .header-content {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 14px 20px; max-width: 1400px; margin: 0 auto;
-  }
-  .logo-wrap { display: flex; align-items: center; gap: 14px; cursor: pointer; }
-  .logo-img {
-    width: 52px; height: 52px; border-radius: 12px;
-    box-shadow: 0 0 20px var(--red-glow);
-    border: 2px solid var(--red);
-    object-fit: cover;
-    background: var(--bg-card);
-  }
-  .logo-text h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px; letter-spacing: 2px;
-    background: linear-gradient(135deg, #fff 0%, var(--red-bright) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .logo-text p { font-size: 11px; color: var(--text-tertiary); letter-spacing: 1.5px; text-transform: uppercase; }
-
-  /* NAV */
-  nav { display: flex; gap: 4px; flex-wrap: wrap; }
-  .nav-btn {
-    background: transparent; color: var(--text-secondary);
-    border: none; padding: 9px 13px; cursor: pointer;
-    font-family: inherit; font-size: 12px; font-weight: 600;
-    letter-spacing: 0.5px; text-transform: uppercase;
-    border-radius: 8px;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .nav-btn:hover { color: var(--text-primary); background: var(--bg-card); }
-  .nav-btn.active { color: var(--text-primary); background: var(--red); box-shadow: 0 0 15px var(--red-glow); }
-  .nav-btn.nhl-active { background: var(--nhl-color); }
-  .nav-btn.lhjmq-active { background: var(--lhjmq-color); }
-
-  /* NAV GROUP DROPDOWN */
-  .nav-group { position: relative; }
-  .nav-dropdown {
-    display: none;
-    position: absolute; top: 100%; left: 0;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 6px;
-    min-width: 180px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    z-index: 200;
-  }
-  .nav-group:hover .nav-dropdown { display: flex; flex-direction: column; gap: 2px; }
-  .nav-dropdown .nav-btn { width: 100%; text-align: left; }
-
-  .mobile-menu-btn { display: none; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); padding: 10px; border-radius: 8px; cursor: pointer; font-size: 20px; }
-
-  /* MAIN */
-  main { padding: 30px 0 60px; }
-  .page { display: none; animation: fadeIn 0.4s ease; }
-  .page.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* HERO HOME — BANNIÈRE PAYSAGE IMMERSIVE */
-  .hero {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1682 / 935;
-    max-height: 75vh;
-    margin-bottom: 30px;
-    border-radius: 24px;
-    overflow: hidden;
-    border: 2px solid var(--red);
-    box-shadow:
-      0 0 60px var(--red-glow),
-      0 20px 80px rgba(0,0,0,0.6),
-      inset 0 0 100px rgba(230, 57, 70, 0.15);
-    background: var(--bg-card);
-  }
-  .hero-banner {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
-  }
-  .hero-overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      linear-gradient(180deg, transparent 0%, transparent 55%, rgba(10, 10, 15, 0.85) 100%);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 30px 20px;
-    text-align: center;
-  }
-  .hero .badge {
-    display: inline-block;
-    padding: 10px 24px;
-    background: var(--red);
-    border-radius: 999px;
-    font-size: 13px; font-weight: 800;
-    letter-spacing: 3px; text-transform: uppercase;
-    box-shadow: 0 4px 20px var(--red-glow);
-    border: 2px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(8px);
-    z-index: 2;
-  }
-  .hero .subtitle {
-    font-size: clamp(13px, 1.6vw, 17px);
-    color: #fff;
-    margin-bottom: 14px;
-    font-weight: 600;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    z-index: 2;
-  }
-  /* Animation de pulsation sur la bannière */
-  @keyframes hero-glow {
-    0%, 100% { filter: brightness(1) saturate(1.1); }
-    50% { filter: brightness(1.05) saturate(1.2); }
-  }
-  .hero-banner { animation: hero-glow 4s ease-in-out infinite; }
-
-  /* DIVISION BANNER */
-  .division-banner {
-    display: flex; align-items: center; gap: 16px;
-    background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
-    border-left: 6px solid var(--division-color, var(--red));
-    border-radius: 14px;
-    padding: 16px 24px;
-    margin-bottom: 24px;
-  }
-  .division-banner-icon {
-    width: 50px; height: 50px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--division-color, var(--red));
-    border-radius: 12px;
-    font-size: 24px; font-weight: 800;
-    color: #fff;
-    font-family: 'Bebas Neue';
-    letter-spacing: 1px;
-  }
-  .division-banner-text h3 {
-    font-family: 'Bebas Neue';
-    font-size: 28px; letter-spacing: 2px;
-  }
-  .division-banner-text p { font-size: 13px; color: var(--text-tertiary); }
-
-  /* SECTION TITLES */
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px; letter-spacing: 3px;
-    margin: 40px 0 20px;
-    display: flex; align-items: center; gap: 14px;
-  }
-  .section-title::before {
-    content: ''; width: 6px; height: 32px;
-    background: linear-gradient(180deg, var(--red-bright), var(--red-dark));
-    border-radius: 3px;
-    box-shadow: 0 0 15px var(--red-glow);
-  }
-
-  /* GRIDS */
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-
-  /* CARDS */
-  .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    transition: all 0.3s;
-  }
-  .card:hover {
-    border-color: var(--red);
-    box-shadow: 0 8px 30px rgba(230, 57, 70, 0.15);
-    transform: translateY(-2px);
-  }
-  .card h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px; letter-spacing: 2px;
-    margin-bottom: 18px;
-    color: var(--red-bright);
-  }
-  .card.nhl h3 { color: #5b9bd5; }
-  .card.lhjmq h3 { color: var(--red-bright); }
-
-  /* LEADERS */
-  .leader-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .leader-row:last-child { border-bottom: none; }
-  .leader-rank {
-    width: 28px; height: 28px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--bg-elevated);
-    border-radius: 8px;
-    font-weight: 800; font-size: 13px;
-    color: var(--text-tertiary);
-    flex-shrink: 0;
-  }
-  .leader-rank.gold { background: linear-gradient(135deg, #ffd700, #ff9500); color: #000; }
-  .leader-rank.silver { background: linear-gradient(135deg, #c0c0c0, #808080); color: #000; }
-  .leader-rank.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); color: #fff; }
-  .leader-info { flex: 1; min-width: 0; }
-  .leader-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .leader-team { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
-  .leader-stat { font-family: 'Bebas Neue'; font-size: 24px; color: var(--red-bright); flex-shrink: 0; }
-  .team-mini-logo { width: 18px; height: 18px; object-fit: contain; }
-
-  /* TABLE */
-  .table-wrap {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    overflow-x: auto;
-  }
-  table { width: 100%; border-collapse: collapse; min-width: 600px; }
-  thead {
-    background: linear-gradient(180deg, var(--bg-elevated), var(--bg-card));
-    border-bottom: 2px solid var(--red);
-  }
-  th {
-    padding: 14px 12px; text-align: left;
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--text-secondary);
-    cursor: pointer; user-select: none;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-  th:hover { color: var(--red-bright); }
-  th.sortable::after { content: ' ⇅'; opacity: 0.3; font-size: 10px; }
-  th.sort-asc::after { content: ' ▲'; opacity: 1; color: var(--red-bright); }
-  th.sort-desc::after { content: ' ▼'; opacity: 1; color: var(--red-bright); }
-  td {
-    padding: 14px 12px;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-  }
-  tbody tr { transition: background 0.2s; cursor: pointer; }
-  tbody tr:hover { background: var(--bg-card-hover); }
-  tbody tr:last-child td { border-bottom: none; }
-  .team-cell { display: flex; align-items: center; gap: 10px; font-weight: 600; }
-  .team-logo-table {
-    width: 32px; height: 32px;
-    object-fit: contain;
-    flex-shrink: 0;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
-  .team-emoji-fallback { font-size: 24px; }
-  .num { text-align: center; font-variant-numeric: tabular-nums; }
-  .pts-cell { font-weight: 800; color: var(--red-bright); }
-  .diff-pos { color: var(--green); font-weight: 700; }
-  .diff-neg { color: var(--red-bright); font-weight: 700; }
-  .streak-w { color: var(--green); font-weight: 700; }
-  .streak-l { color: var(--red-bright); font-weight: 700; }
-
-  /* FILTERS */
-  .filters {
-    display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
-  }
-  .filter-input, .filter-select {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-family: inherit; font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .filter-input:focus, .filter-select:focus { border-color: var(--red); }
-  .filter-input { flex: 1; min-width: 200px; }
-
-  /* TEAM CARDS GRID */
-  .teams-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  .team-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px 20px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .team-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: var(--team-color, var(--red));
-  }
-  .team-card:hover {
-    border-color: var(--team-color, var(--red));
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-  }
-  .team-card-logo {
-    width: 80px; height: 80px;
-    object-fit: contain;
-    margin: 0 auto 12px;
-    display: block;
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-  }
-  .team-card-name { font-family: 'Bebas Neue'; font-size: 22px; letter-spacing: 1px; }
-  .team-card-city { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
-  .team-card-record { margin-top: 10px; font-size: 13px; color: var(--text-secondary); font-weight: 600; }
-
-  /* TEAM DETAIL */
-  .team-header {
-    display: flex; align-items: center; gap: 24px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 6px solid var(--team-color, var(--red));
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-  .team-header-logo {
-    width: 100px; height: 100px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
-  }
-  .team-header-info h2 { font-family: 'Bebas Neue'; font-size: 42px; letter-spacing: 2px; }
-  .team-header-info p { color: var(--text-tertiary); font-size: 14px; }
-  .team-header-stats {
-    margin-left: auto;
-    display: flex; gap: 24px;
-    flex-wrap: wrap;
-  }
-  .stat-block { text-align: center; }
-  .stat-block-value { font-family: 'Bebas Neue'; font-size: 32px; color: var(--red-bright); }
-  .stat-block-label { font-size: 10px; color: var(--text-tertiary); letter-spacing: 1.5px; text-transform: uppercase; }
-
-  .affiliate-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--bg-elevated);
-    padding: 8px 14px;
-    border-radius: 10px;
-    margin-top: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: all 0.2s;
-    border: 1px solid var(--border);
-  }
-  .affiliate-link:hover { border-color: var(--red); color: var(--red-bright); }
-  .affiliate-link img { width: 22px; height: 22px; object-fit: contain; }
-
-  .back-btn {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    padding: 8px 16px; border-radius: 10px;
-    cursor: pointer; font-family: inherit; font-size: 13px;
-    margin-bottom: 16px;
-    transition: all 0.2s;
-  }
-  .back-btn:hover { border-color: var(--red); color: var(--text-primary); }
-
-  /* EMPTY STATE */
-  .empty-state {
-    text-align: center; padding: 60px 20px;
-    color: var(--text-tertiary);
-  }
-  .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 24px 0;
-    margin-top: 40px;
-    text-align: center;
-    color: var(--text-tertiary);
-    font-size: 13px;
-  }
-  footer .heart { color: var(--red-bright); }
-
-  /* ============ ADMIN MODE ============ */
-  .admin-btn-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 90;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-  }
-  .admin-trigger {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    padding: 10px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    transition: all 0.2s;
-  }
-  .admin-trigger:hover {
-    border-color: var(--red);
-    color: var(--text-primary);
-  }
-  .admin-trigger.active {
-    background: linear-gradient(135deg, var(--red), var(--red-dark));
-    color: #fff;
-    border-color: var(--red);
-    box-shadow: 0 4px 30px var(--red-glow);
-  }
-  .admin-download-btn {
-    display: none;
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    border: none;
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 30px rgba(22, 163, 74, 0.5);
-    animation: pulse-save 2s ease-in-out infinite;
-  }
-  .admin-download-btn.show { display: block; }
-  @keyframes pulse-save {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-
-  /* MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    animation: fadeIn 0.2s;
-  }
-  .modal-overlay.show { display: flex; }
-  .modal {
-    background: var(--bg-secondary);
-    border: 2px solid var(--red);
-    border-radius: 20px;
-    padding: 30px;
-    max-width: 600px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(230,57,70,0.3);
-  }
-  .modal h3 {
-    font-family: 'Bebas Neue';
-    font-size: 28px;
-    letter-spacing: 2px;
-    color: var(--red-bright);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .modal-form-group {
-    margin-bottom: 14px;
-  }
-  .modal-form-group label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
-    margin-bottom: 6px;
-  }
-  .modal-form-group input,
-  .modal-form-group select {
-    width: 100%;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-primary);
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .modal-form-group input:focus,
-  .modal-form-group select:focus {
-    border-color: var(--red);
-  }
-  .modal-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .modal-grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-  .modal-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-  .btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    transition: all 0.2s;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--red), var(--red-dark));
-    color: #fff;
-  }
-  .btn-primary:hover { box-shadow: 0 4px 20px var(--red-glow); }
-  .btn-secondary {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-  }
-  .btn-secondary:hover { border-color: var(--red); color: var(--text-primary); }
-  .btn-danger {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
-    color: #fff;
-  }
-  .btn-success {
-    background: linear-gradient(135deg, #16a34a, #15803d);
-    color: #fff;
-  }
-
-  /* ADMIN BANNER (visible quand admin actif) */
-  .admin-banner {
-    display: none;
-    background: linear-gradient(135deg, rgba(230,57,70,0.15), rgba(193,18,31,0.1));
-    border: 1px solid var(--red);
-    border-radius: 12px;
-    padding: 12px 20px;
-    margin-bottom: 20px;
-    align-items: center;
-    gap: 14px;
-    font-size: 13px;
-  }
-  .admin-banner.show { display: flex; }
-  .admin-banner-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--red-bright);
-    border-radius: 50%;
-    animation: pulse-dot 1.5s ease-in-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 0 0 var(--red-glow); }
-    50% { box-shadow: 0 0 0 10px transparent; }
-  }
-
-  /* ADMIN CONTROLS DANS LES TABLES */
-  .admin-row-actions {
-    display: none;
-  }
-  body.admin-mode .admin-row-actions {
-    display: inline-flex;
-    gap: 4px;
-  }
-  body.admin-mode tbody tr { cursor: default !important; }
-  .row-action-btn {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-  }
-  .row-action-btn:hover {
-    border-color: var(--red);
-    color: var(--red-bright);
-  }
-  .row-action-btn.delete:hover {
-    border-color: #dc2626;
-    color: #ef4444;
-    background: rgba(220,38,38,0.1);
-  }
-
-  .admin-add-btn {
-    display: none;
-    background: linear-gradient(135deg, var(--red), var(--red-dark));
-    color: #fff;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 20px var(--red-glow);
-  }
-  body.admin-mode .admin-add-btn { display: inline-block; }
-
-  .modal-info {
-    background: rgba(255,184,28,0.1);
-    border: 1px solid rgba(255,184,28,0.3);
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #fbbf24;
-    line-height: 1.5;
-  }
-
-  /* MOBILE */
-  @media (max-width: 1100px) {
-    .nav-btn { padding: 8px 10px; font-size: 11px; }
-  }
-  @media (max-width: 900px) {
-    .grid-3 { grid-template-columns: 1fr; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .mobile-menu-btn { display: block; }
-    nav {
-      position: fixed; top: 80px; left: 0; right: 0;
-      flex-direction: column; gap: 0;
-      background: var(--bg-secondary);
-      border-bottom: 2px solid var(--red);
-      padding: 12px;
-      transform: translateY(-150%);
-      transition: transform 0.3s;
-      z-index: 99;
-      max-height: calc(100vh - 80px);
-      overflow-y: auto;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KV Studio — Création de sites web professionnels au Québec</title>
+  <meta name="description" content="KV Studio crée des sites web modernes sur mesure pour PME, restaurants, commerces, créateurs de contenu, streamers et ligues sportives au Québec. Sites livrés rapidement, à prix juste.">
+  <meta name="keywords" content="création site web Québec, site web PME, studio web Québec, KV Studio, site web restaurant, site web streamer, site web ligue sportive">
+  <meta name="author" content="KV Studio">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="KV Studio — Sites web modernes au Québec">
+  <meta property="og:description" content="Sites web modernes, livrés rapidement, à prix juste.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ultra631.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KV Studio — Sites web Québec">
+  <meta name="twitter:description" content="Sites web modernes, livrés rapidement, à prix juste.">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        regs.forEach(function(reg) { reg.unregister(); });
+      });
     }
-    nav.open { transform: translateY(0); }
-    .nav-btn { width: 100%; text-align: left; padding: 14px; font-size: 13px; }
-    .nav-group .nav-dropdown { display: flex; flex-direction: column; position: static; box-shadow: none; padding-left: 20px; padding-right: 0; padding-top: 0; padding-bottom: 0; min-width: auto; border: none; background: transparent; }
-    .hero { max-height: 60vh; border-radius: 16px; }
-    .hero-overlay { padding: 20px 16px; }
-    .section-title { font-size: 28px; }
-    .team-header-stats { width: 100%; justify-content: space-around; margin-left: 0; }
-  }
-  @media (max-width: 500px) {
-    .container { padding: 0 12px; }
-    .header-content { padding: 12px; }
-    .logo-text h1 { font-size: 22px; }
-    .logo-text p { font-size: 9px; }
-    .logo-img { width: 44px; height: 44px; }
-    .card { padding: 18px; }
-    th, td { padding: 10px 8px; font-size: 12px; }
-    .team-logo-table { width: 26px; height: 26px; }
-  }
-</style>
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        names.forEach(function(name) { caches.delete(name); });
+      });
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ================================
+       VARIABLES & RESET
+    ================================ */
+    :root {
+      --bg:          #0B0E16;
+      --surface:     #131929;
+      --surface-2:   #1A2235;
+      --border:      #1E2A40;
+      --border-glow: rgba(34,211,238,0.3);
+      --accent:      #22D3EE;
+      --accent-2:    #7C3AED;
+      --gradient:    linear-gradient(135deg, #22D3EE 0%, #7C3AED 100%);
+      --text:        #F1F5F9;
+      --text-muted:  #94A3B8;
+      --text-subtle: #64748B;
+      --radius:      14px;
+      --radius-sm:   8px;
+      --radius-lg:   20px;
+      --nav-h:       68px;
+      --max-w:       1160px;
+      --transition:  0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ================================
+       SHARED UTILITIES
+    ================================ */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 6rem 0; }
+    .section-alt { background: var(--surface); }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .section-sub { margin: 0 auto; }
+
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--gradient);
+      color: #0B0E16;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(34,211,238,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .btn-sm { padding: 0.55rem 1.2rem; font-size: 0.85rem; }
+
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ================================
+       NAV
+    ================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(11,14,22,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .nav-logo .logo-kv {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-logo .logo-studio { color: var(--text); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .nav-links a {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover { color: var(--text); background: var(--surface-2); }
+    .nav-cta { flex-shrink: 0; }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile menu */
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(11,14,22,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: 'Syne', sans-serif;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color var(--transition);
+    }
+    .nav-mobile a:hover { color: var(--accent); }
+    .nav-mobile .btn { margin-top: 1rem; justify-content: center; }
+
+    /* ================================
+       HERO
+    ================================ */
+    #accueil {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: var(--nav-h);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(34,211,238,0.07) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(34,211,238,0.07) 0%, rgba(124,58,237,0.05) 50%, transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+      animation: fadeSlideDown 0.8s ease forwards;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent);
+      animation: pulse 2s infinite;
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      animation: fadeSlideUp 0.9s 0.15s ease both;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 2.25rem;
+      animation: fadeSlideUp 0.9s 0.25s ease both;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      animation: fadeSlideUp 0.9s 0.35s ease both;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      animation: fadeSlideUp 0.9s 0.45s ease both;
+    }
+    .hero-stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+      margin-top: 0.3rem;
+    }
+
+    /* ================================
+       SERVICES
+    ================================ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .service-card:hover {
+      border-color: rgba(34,211,238,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(34,211,238,0.08);
+    }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.15);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .service-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .service-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .service-link {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap var(--transition);
+    }
+    .service-link:hover { gap: 0.55rem; }
+
+    /* ================================
+       PORTFOLIO
+    ================================ */
+    .portfolio-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 0.4rem 1.1rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(34,211,238,0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .portfolio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .portfolio-card:hover {
+      border-color: rgba(34,211,238,0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .portfolio-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-thumb-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .portfolio-thumb-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+    }
+    .portfolio-info { padding: 1.25rem 1.5rem; }
+    .portfolio-type {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .portfolio-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .portfolio-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Portfolio Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+    .modal-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      max-width: 560px;
+      width: 100%;
+      padding: 2.5rem;
+      position: relative;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--accent); }
+    .modal-thumb {
+      height: 160px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .modal-type {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .modal-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .modal-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .modal-techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .tech-tag {
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.2);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.28rem 0.8rem;
+      border-radius: 999px;
+    }
+
+    /* ================================
+       TARIFS
+    ================================ */
+    .tarifs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .tarif-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+    }
+    .tarif-card:hover { transform: translateY(-4px); }
+    .tarif-card.featured {
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+    }
+    .tarif-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: var(--radius-lg);
+      background: var(--gradient);
+      z-index: -1;
+    }
+    .tarif-badge {
+      display: inline-block;
+      background: var(--gradient);
+      color: #0B0E16;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+    .tarif-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .tarif-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .tarif-price span { font-size: 1.1rem; font-weight: 500; color: var(--text-muted); }
+    .tarif-tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tarif-features { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    .tarif-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .tarif-feature .check {
+      width: 18px;
+      height: 18px;
+      background: rgba(34,211,238,0.1);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .tarif-feature .check::after {
+      content: '✓';
+      font-size: 0.65rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ================================
+       PROCESSUS
+    ================================ */
+    .processus-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .processus-grid::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--border) 10%, var(--border) 90%, transparent);
+      z-index: 0;
+    }
+    .processus-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      position: relative;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .step-circle svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .processus-step:hover .step-circle {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(34,211,238,0.25);
+    }
+    .step-num {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 20px;
+      height: 20px;
+      background: var(--gradient);
+      border-radius: 50%;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #0B0E16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .step-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ================================
+       TÉMOIGNAGES
+    ================================ */
+    .temoignages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.25rem;
+    }
+    .temoignage-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .temoignage-card:hover {
+      border-color: rgba(34,211,238,0.25);
+      transform: translateY(-3px);
+    }
+    .temoignage-stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .temoignage-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    .temoignage-author { display: flex; align-items: center; gap: 0.75rem; }
+    .author-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .author-name { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; }
+    .author-project { font-size: 0.78rem; color: var(--text-subtle); }
+
+    /* ================================
+       FORMULAIRE DEVIS
+    ================================ */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(34,211,238,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select option { background: var(--surface-2); }
+    .form-submit-wrap { grid-column: 1 / -1; margin-top: 0.5rem; }
+    .form-note { font-size: 0.78rem; color: var(--text-subtle); margin-top: 0.6rem; }
+    .form-success {
+      display: none;
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+    .devis-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .devis-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .devis-info p { color: var(--text-muted); margin-bottom: 2rem; }
+    .devis-points { display: flex; flex-direction: column; gap: 1rem; }
+    .devis-point { display: flex; gap: 1rem; align-items: flex-start; }
+    .devis-point-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(34,211,238,0.08);
+      border: 1px solid rgba(34,211,238,0.15);
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .devis-point-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .devis-point-title { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .devis-point-text { font-size: 0.83rem; color: var(--text-muted); }
+
+    /* ================================
+       FAQ
+    ================================ */
+    .faq-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.open { border-color: rgba(34,211,238,0.3); }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 600;
+      gap: 1rem;
+    }
+    .faq-question:hover { color: var(--accent); }
+    .faq-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: transform var(--transition), background var(--transition);
+      color: var(--accent);
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(34,211,238,0.1); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    /* ================================
+       CONTACT
+    ================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .contact-info p { color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .social-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.85rem;
+    }
+    .social-links { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .social-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .map-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+    .map-icon { font-size: 3rem; }
+    .map-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; }
+    .map-card p { color: var(--text-muted); font-size: 0.88rem; }
+
+    /* ================================
+       FOOTER
+    ================================ */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 0 2rem;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .nav-logo { margin-bottom: 1rem; font-size: 1.3rem; }
+    .footer-brand p { color: var(--text-muted); font-size: 0.87rem; line-height: 1.7; max-width: 280px; }
+    .footer-col-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-subtle);
+      margin-bottom: 1rem;
+    }
+    .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-copy { font-size: 0.82rem; color: var(--text-subtle); }
+    .footer-bottom-links { display: flex; gap: 1.25rem; }
+    .footer-bottom-links a { font-size: 0.82rem; color: var(--text-subtle); transition: color var(--transition); }
+    .footer-bottom-links a:hover { color: var(--accent); }
+
+    /* ================================
+       ANIMATIONS
+    ================================ */
+    @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlideUp   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 6px var(--accent); }
+      50% { box-shadow: 0 0 14px var(--accent), 0 0 24px rgba(34,211,238,0.4); }
+    }
+
+    /* ================================
+       RESPONSIVE
+    ================================ */
+    @media (max-width: 1024px) {
+      .processus-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .processus-grid::before { display: none; }
+      .devis-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 4rem 0; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .processus-grid { grid-template-columns: 1fr; }
+      .tarifs-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .hero-ctas .btn { justify-content: center; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="header-content">
-    <div class="logo-wrap" onclick="navigate('home')">
-      <img src="logo.png" alt="LCHQ" class="logo-img" onerror="this.style.display='none'">
-      <div class="logo-text">
-        <h1>LCHQ</h1>
-        <p>Saison 6 · World of Chel</p>
-      </div>
-    </div>
-    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-    <nav id="mainNav">
-      <button class="nav-btn active" data-page="home" onclick="navigate('home')">Accueil</button>
+<!-- ==============================
+     NAVIGATION
+============================== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#accueil" class="nav-logo">
+      <span class="logo-kv">KV</span>
+      <span class="logo-studio">Studio</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#processus">Processus</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#devis" class="btn btn-primary btn-sm nav-cta">Demander un devis</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#processus">Processus</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#devis" class="btn btn-primary">Demander un devis</a>
+  </div>
+</nav>
 
-      <div class="nav-group">
-        <button class="nav-btn" data-section="standings">Classement ▾</button>
-        <div class="nav-dropdown">
-          <button class="nav-btn" data-page="standings-nhl" onclick="navigate('standings-nhl')">Division NHL</button>
-          <button class="nav-btn" data-page="standings-lhjmq" onclick="navigate('standings-lhjmq')">Division LHJMQ</button>
+<!-- ==============================
+     HERO
+============================== -->
+<section id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Disponible pour de nouveaux projets · Québec
+      </div>
+      <h1 class="hero-title">
+        Sites web <span class="gradient-text">modernes</span><br>
+        livrés rapidement,<br>à prix juste.
+      </h1>
+      <p class="hero-sub">
+        PME, restaurants, créateurs de contenu, streamers, ligues sportives — je conçois des sites web sur mesure qui reflètent vraiment votre identité, sans vous ruiner.
+      </p>
+      <div class="hero-ctas">
+        <a href="#devis" class="btn btn-primary">Demander un devis gratuit →</a>
+        <a href="#portfolio" class="btn btn-outline">Voir mes réalisations</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-num">100%</span>
+          <div class="hero-stat-label">Sur mesure</div>
+        </div>
+        <div>
+          <span class="hero-stat-num">~2 sem.</span>
+          <div class="hero-stat-label">Délai moyen</div>
+        </div>
+        <div>
+          <span class="hero-stat-num">Québec</span>
+          <div class="hero-stat-label">Basé au Québec</div>
+        </div>
+        <div>
+          <span class="hero-stat-num">5★</span>
+          <div class="hero-stat-label">Satisfaction clients</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="nav-group">
-        <button class="nav-btn" data-section="players">Joueurs ▾</button>
-        <div class="nav-dropdown">
-          <button class="nav-btn" data-page="players-nhl" onclick="navigate('players-nhl')">Joueurs NHL</button>
-          <button class="nav-btn" data-page="players-lhjmq" onclick="navigate('players-lhjmq')">Joueurs LHJMQ</button>
+<!-- ==============================
+     SERVICES
+============================== -->
+<section id="services" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Ce que je fais</div>
+      <h2 class="section-title">Services offerts</h2>
+      <p class="section-sub">De la vitrine simple au site complexe avec portail membre — j'adapte la solution à votre projet et votre budget.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="service-name">Sites vitrine</div>
+        <p class="service-desc">PME, restaurants, commerces, professionnels. Site élégant et convaincant qui présente votre activité, vos services et vos coordonnées.</p>
+        <a href="#devis" class="service-link">En savoir plus →</a>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="service-name">Créateurs &amp; Streamers</div>
+        <p class="service-desc">Pages de marque personnelles, portfolios, hubs de liens, boutiques de merch et pages de dons. Conçu pour votre audience.</p>
+        <a href="#devis" class="service-link">En savoir plus →</a>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="service-name">Ligues &amp; Organisations</div>
+        <p class="service-desc">Ligues sportives, clubs, associations et équipes. Classements, statistiques, calendriers, profils joueurs et gestion des matchs.</p>
+        <a href="#devis" class="service-link">En savoir plus →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-name">Hébergement &amp; Maintenance</div>
+        <p class="service-desc">Hébergement sur GitHub Pages (gratuit) ou hébergeur premium. Mises à jour, sauvegardes et support continu inclus.</p>
+        <a href="#devis" class="service-link">En savoir plus →</a>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="service-name">Refonte de site</div>
+        <p class="service-desc">Votre site vieilli ou ne convertit plus? Je le modernise de fond en comble : nouveau design, nouvelle structure, même contenu.</p>
+        <a href="#devis" class="service-link">En savoir plus →</a>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+        </div>
+        <div class="service-name">Visibilité &amp; SEO</div>
+        <p class="service-desc">Optimisation de base incluse dans chaque projet : balises méta, structure rapide, mobile-first — pour être trouvé sur Google.</p>
+        <a href="#devis" class="service-link">En savoir plus →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     PORTFOLIO
+============================== -->
+<section id="portfolio" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Mes réalisations</div>
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-sub">Chaque site est conçu sur mesure. Cliquez sur un projet pour voir les détails.</p>
+    </div>
+    <div class="portfolio-filters reveal">
+      <button class="filter-btn active" data-filter="all">Tous</button>
+      <button class="filter-btn" data-filter="sport">Sport</button>
+      <button class="filter-btn" data-filter="vitrine">Vitrine</button>
+      <button class="filter-btn" data-filter="createur">Créateur</button>
+    </div>
+    <div class="portfolio-grid" id="portfolio-grid">
+      <!-- Projet 1 : LCHQ (réel) -->
+      <div class="portfolio-card reveal" data-category="sport" data-id="0">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg,#0f172a,#1e3a5f);">
+          <div class="portfolio-thumb-inner">
+            <span style="font-size:2.5rem;">🏒</span>
+            <span class="portfolio-thumb-label">LCHQ</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Ligue sportive</div>
+          <div class="portfolio-title">LCHQ — Ligue de hockey</div>
+          <p class="portfolio-desc">Statistiques en temps réel, classements, profils joueurs et calendrier complet sur NHL 26.</p>
         </div>
       </div>
-
-      <div class="nav-group">
-        <button class="nav-btn" data-section="goalies">Gardiens ▾</button>
-        <div class="nav-dropdown">
-          <button class="nav-btn" data-page="goalies-nhl" onclick="navigate('goalies-nhl')">Gardiens NHL</button>
-          <button class="nav-btn" data-page="goalies-lhjmq" onclick="navigate('goalies-lhjmq')">Gardiens LHJMQ</button>
+      <!-- Projet 2 -->
+      <div class="portfolio-card reveal reveal-delay-1" data-category="vitrine" data-id="1">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg,#1a0a0a,#3d1515);">
+          <div class="portfolio-thumb-inner">
+            <span style="font-size:2.5rem;">🍽️</span>
+            <span class="portfolio-thumb-label">La Bella</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Restaurant</div>
+          <div class="portfolio-title">La Bella Cucina</div>
+          <p class="portfolio-desc">Site vitrine avec menu interactif, galerie photos et système de réservation en ligne.</p>
         </div>
       </div>
-
-      <button class="nav-btn" data-page="teams" onclick="navigate('teams')">Équipes</button>
-      <button class="nav-btn" data-page="schedule" onclick="navigate('schedule')">Calendrier</button>
-
-      <div class="nav-group">
-        <button class="nav-btn" data-section="trophies">Trophées ▾</button>
-        <div class="nav-dropdown">
-          <button class="nav-btn" data-page="trophies-nhl" onclick="navigate('trophies-nhl')">Trophées NHL</button>
-          <button class="nav-btn" data-page="trophies-lhjmq" onclick="navigate('trophies-lhjmq')">Trophées LHJMQ</button>
+      <!-- Projet 3 -->
+      <div class="portfolio-card reveal reveal-delay-2" data-category="vitrine" data-id="2">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg,#0a1a0a,#153d20);">
+          <div class="portfolio-thumb-inner">
+            <span style="font-size:2.5rem;">🛍️</span>
+            <span class="portfolio-thumb-label">Boutique</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Commerce local</div>
+          <div class="portfolio-title">Boutique Nordik</div>
+          <p class="portfolio-desc">Boutique artisanale locale avec catalogue produits, section promotions et formulaire de commande.</p>
         </div>
       </div>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-
-<!-- HOME -->
-<section id="page-home" class="page active">
-  <div class="hero">
-    <img src="logo-banner.png" alt="LCHQ Hockey" class="hero-banner" onerror="this.style.display='none'">
-    <div class="hero-overlay">
-      <p class="subtitle">Ligue de Hockey · World of Chel · NHL 26</p>
-      <div class="badge">⚡ Saison 6 — En cours</div>
-    </div>
-  </div>
-
-  <h2 class="section-title">Division NHL — Leaders</h2>
-  <div class="grid-3">
-    <div class="card nhl"><h3>🥅 Top Buteurs NHL</h3><div id="nhlTopGoals"></div></div>
-    <div class="card nhl"><h3>🎯 Top Pointeurs NHL</h3><div id="nhlTopPoints"></div></div>
-    <div class="card nhl"><h3>🛡️ Top Gardiens NHL</h3><div id="nhlTopGoalies"></div></div>
-  </div>
-
-  <h2 class="section-title">Division LHJMQ — Leaders</h2>
-  <div class="grid-3">
-    <div class="card lhjmq"><h3>🥅 Top Buteurs LHJMQ</h3><div id="lhjmqTopGoals"></div></div>
-    <div class="card lhjmq"><h3>🎯 Top Pointeurs LHJMQ</h3><div id="lhjmqTopPoints"></div></div>
-    <div class="card lhjmq"><h3>🛡️ Top Gardiens LHJMQ</h3><div id="lhjmqTopGoalies"></div></div>
-  </div>
-</section>
-
-<!-- STANDINGS NHL -->
-<section id="page-standings-nhl" class="page">
-  <div class="division-banner" style="--division-color: var(--nhl-color)">
-    <div class="division-banner-icon">NHL</div>
-    <div class="division-banner-text">
-      <h3>Classement Division NHL</h3>
-      <p>12 équipes · Saison régulière</p>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <table id="standingsNhlTable">
-      <thead>
-        <tr>
-          <th>#</th><th>Équipe</th>
-          <th class="num sortable" data-key="gp">PJ</th>
-          <th class="num sortable" data-key="w">V</th>
-          <th class="num sortable" data-key="l">D</th>
-          <th class="num sortable" data-key="otl">DP</th>
-          <th class="num sortable" data-key="sol">DF</th>
-          <th class="num sortable" data-key="gf">BP</th>
-          <th class="num sortable" data-key="ga">BC</th>
-          <th class="num sortable" data-key="diff">DIFF</th>
-          <th class="num">SÉR.</th>
-          <th class="num sortable sort-desc" data-key="pts">PTS</th>
-        </tr>
-      </thead>
-      <tbody id="standingsNhlBody"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- STANDINGS LHJMQ -->
-<section id="page-standings-lhjmq" class="page">
-  <div class="division-banner" style="--division-color: var(--lhjmq-color)">
-    <div class="division-banner-icon">LHJMQ</div>
-    <div class="division-banner-text">
-      <h3>Classement Division LHJMQ</h3>
-      <p>12 équipes · Saison régulière</p>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <table id="standingsLhjmqTable">
-      <thead>
-        <tr>
-          <th>#</th><th>Équipe</th>
-          <th class="num sortable" data-key="gp">PJ</th>
-          <th class="num sortable" data-key="w">V</th>
-          <th class="num sortable" data-key="l">D</th>
-          <th class="num sortable" data-key="otl">DP</th>
-          <th class="num sortable" data-key="sol">DF</th>
-          <th class="num sortable" data-key="gf">BP</th>
-          <th class="num sortable" data-key="ga">BC</th>
-          <th class="num sortable" data-key="diff">DIFF</th>
-          <th class="num">SÉR.</th>
-          <th class="num sortable sort-desc" data-key="pts">PTS</th>
-        </tr>
-      </thead>
-      <tbody id="standingsLhjmqBody"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- PLAYERS NHL -->
-<section id="page-players-nhl" class="page">
-  <div class="division-banner" style="--division-color: var(--nhl-color)">
-    <div class="division-banner-icon">NHL</div>
-    <div class="division-banner-text">
-      <h3>Statistiques des Joueurs NHL</h3>
-      <p>Tous les joueurs de la Division NHL</p>
-    </div>
-  </div>
-  <div class="filters">
-    <input type="text" id="playerNhlSearch" class="filter-input" placeholder="🔎 Rechercher un joueur..." oninput="renderPlayersNHL()">
-    <select id="playerNhlTeamFilter" class="filter-select" onchange="renderPlayersNHL()">
-      <option value="">Toutes les équipes NHL</option>
-    </select>
-  </div>
-  <button class="admin-add-btn" onclick="openPlayerModal(null, 'nhl')">+ Ajouter un joueur NHL</button>
-  <div class="table-wrap">
-    <table id="playersNhlTable">
-      <thead><tr>
-        <th>#</th><th>Joueur</th><th>Équipe</th><th>Pos</th>
-        <th class="num sortable" data-key="gp">PJ</th>
-        <th class="num sortable" data-key="g">B</th>
-        <th class="num sortable" data-key="a">A</th>
-        <th class="num sortable sort-desc" data-key="pts">PTS</th>
-        <th class="num sortable" data-key="plusminus">+/-</th>
-        <th class="num sortable" data-key="pim">PUN</th>
-        <th class="num sortable" data-key="shots">TIRS</th>
-        <th class="num sortable" data-key="shotpct">%T</th>
-        <th class="num">TG/M</th>
-        <th class="num sortable" data-key="fopct">%MAJ</th>
-      </tr></thead>
-      <tbody id="playersNhlBody"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- PLAYERS LHJMQ -->
-<section id="page-players-lhjmq" class="page">
-  <div class="division-banner" style="--division-color: var(--lhjmq-color)">
-    <div class="division-banner-icon">LHJMQ</div>
-    <div class="division-banner-text">
-      <h3>Statistiques des Joueurs LHJMQ</h3>
-      <p>Tous les joueurs de la Division LHJMQ</p>
-    </div>
-  </div>
-  <div class="filters">
-    <input type="text" id="playerLhjmqSearch" class="filter-input" placeholder="🔎 Rechercher un joueur..." oninput="renderPlayersLHJMQ()">
-    <select id="playerLhjmqTeamFilter" class="filter-select" onchange="renderPlayersLHJMQ()">
-      <option value="">Toutes les équipes LHJMQ</option>
-    </select>
-  </div>
-  <button class="admin-add-btn" onclick="openPlayerModal(null, 'lhjmq')">+ Ajouter un joueur LHJMQ</button>
-  <div class="table-wrap">
-    <table id="playersLhjmqTable">
-      <thead><tr>
-        <th>#</th><th>Joueur</th><th>Équipe</th><th>Pos</th>
-        <th class="num sortable" data-key="gp">PJ</th>
-        <th class="num sortable" data-key="g">B</th>
-        <th class="num sortable" data-key="a">A</th>
-        <th class="num sortable sort-desc" data-key="pts">PTS</th>
-        <th class="num sortable" data-key="plusminus">+/-</th>
-        <th class="num sortable" data-key="pim">PUN</th>
-        <th class="num sortable" data-key="shots">TIRS</th>
-        <th class="num sortable" data-key="shotpct">%T</th>
-        <th class="num">TG/M</th>
-        <th class="num sortable" data-key="fopct">%MAJ</th>
-      </tr></thead>
-      <tbody id="playersLhjmqBody"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- GOALIES NHL -->
-<section id="page-goalies-nhl" class="page">
-  <div class="division-banner" style="--division-color: var(--nhl-color)">
-    <div class="division-banner-icon">NHL</div>
-    <div class="division-banner-text">
-      <h3>Gardiens NHL</h3>
-      <p>Statistiques des gardiens de la Division NHL</p>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <table id="goaliesNhlTable">
-      <thead><tr>
-        <th>#</th><th>Gardien</th><th>Équipe</th>
-        <th class="num sortable" data-key="gp">PJ</th>
-        <th class="num sortable sort-desc" data-key="w">V</th>
-        <th class="num sortable" data-key="l">D</th>
-        <th class="num sortable" data-key="otl">DP</th>
-        <th class="num sortable" data-key="gaa">MOY</th>
-        <th class="num sortable" data-key="svpct">%ARR</th>
-        <th class="num sortable" data-key="so">BL</th>
-        <th class="num sortable" data-key="sa">TR</th>
-        <th class="num sortable" data-key="sv">ARR</th>
-      </tr></thead>
-      <tbody id="goaliesNhlBody"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- GOALIES LHJMQ -->
-<section id="page-goalies-lhjmq" class="page">
-  <div class="division-banner" style="--division-color: var(--lhjmq-color)">
-    <div class="division-banner-icon">LHJMQ</div>
-    <div class="division-banner-text">
-      <h3>Gardiens LHJMQ</h3>
-      <p>Statistiques des gardiens de la Division LHJMQ</p>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <table id="goaliesLhjmqTable">
-      <thead><tr>
-        <th>#</th><th>Gardien</th><th>Équipe</th>
-        <th class="num sortable" data-key="gp">PJ</th>
-        <th class="num sortable sort-desc" data-key="w">V</th>
-        <th class="num sortable" data-key="l">D</th>
-        <th class="num sortable" data-key="otl">DP</th>
-        <th class="num sortable" data-key="gaa">MOY</th>
-        <th class="num sortable" data-key="svpct">%ARR</th>
-        <th class="num sortable" data-key="so">BL</th>
-        <th class="num sortable" data-key="sa">TR</th>
-        <th class="num sortable" data-key="sv">ARR</th>
-      </tr></thead>
-      <tbody id="goaliesLhjmqBody"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- TEAMS -->
-<section id="page-teams" class="page">
-  <h2 class="section-title">Les 24 Équipes</h2>
-
-  <div class="division-banner" style="--division-color: var(--nhl-color)">
-    <div class="division-banner-icon">NHL</div>
-    <div class="division-banner-text">
-      <h3>Division NHL</h3>
-      <p>12 équipes professionnelles</p>
-    </div>
-  </div>
-  <div id="teamsGridNhl" class="teams-grid"></div>
-
-  <div class="division-banner" style="--division-color: var(--lhjmq-color); margin-top: 40px;">
-    <div class="division-banner-icon">LHJMQ</div>
-    <div class="division-banner-text">
-      <h3>Division LHJMQ</h3>
-      <p>12 équipes filiales junior</p>
-    </div>
-  </div>
-  <div id="teamsGridLhjmq" class="teams-grid"></div>
-</section>
-
-<!-- TEAM DETAIL -->
-<section id="page-team-detail" class="page">
-  <button class="back-btn" onclick="navigate('teams')">← Retour aux équipes</button>
-  <div id="teamDetail"></div>
-</section>
-
-<!-- SCHEDULE -->
-<section id="page-schedule" class="page">
-  <h2 class="section-title">Calendrier & Résultats</h2>
-  <div class="card">
-    <div class="empty-state">
-      <div class="empty-state-icon">🏒</div>
-      <p style="font-size: 16px;"><strong>Le calendrier sera bientôt disponible.</strong></p>
-      <p style="margin-top: 8px;">Les matchs joués et à venir apparaîtront ici une fois ajoutés au fichier <code>data.json</code>.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TROPHIES NHL -->
-<section id="page-trophies-nhl" class="page">
-  <div class="division-banner" style="--division-color: var(--nhl-color)">
-    <div class="division-banner-icon">NHL</div>
-    <div class="division-banner-text">
-      <h3>Trophées & Leaders NHL</h3>
-      <p>Les meilleurs de la Division NHL</p>
-    </div>
-  </div>
-  <div class="grid-3">
-    <div class="card nhl"><h3>🏆 Top Buteurs</h3><div id="trophyNhlGoals"></div></div>
-    <div class="card nhl"><h3>🎯 Top Pointeurs (Art Ross)</h3><div id="trophyNhlPoints"></div></div>
-    <div class="card nhl"><h3>🤝 Top Passeurs</h3><div id="trophyNhlAssists"></div></div>
-    <div class="card nhl"><h3>➕ Meilleur +/-</h3><div id="trophyNhlPM"></div></div>
-    <div class="card nhl"><h3>👊 Meilleur Frappeur (PUN)</h3><div id="trophyNhlPIM"></div></div>
-    <div class="card nhl"><h3>🥅 Trophée Vézina</h3><div id="trophyNhlVezina"></div></div>
-  </div>
-</section>
-
-<!-- TROPHIES LHJMQ -->
-<section id="page-trophies-lhjmq" class="page">
-  <div class="division-banner" style="--division-color: var(--lhjmq-color)">
-    <div class="division-banner-icon">LHJMQ</div>
-    <div class="division-banner-text">
-      <h3>Trophées & Leaders LHJMQ</h3>
-      <p>Les meilleurs de la Division LHJMQ</p>
-    </div>
-  </div>
-  <div class="grid-3">
-    <div class="card lhjmq"><h3>🏆 Top Buteurs</h3><div id="trophyLhjmqGoals"></div></div>
-    <div class="card lhjmq"><h3>🎯 Top Pointeurs</h3><div id="trophyLhjmqPoints"></div></div>
-    <div class="card lhjmq"><h3>🤝 Top Passeurs</h3><div id="trophyLhjmqAssists"></div></div>
-    <div class="card lhjmq"><h3>➕ Meilleur +/-</h3><div id="trophyLhjmqPM"></div></div>
-    <div class="card lhjmq"><h3>👊 Meilleur Frappeur (PUN)</h3><div id="trophyLhjmqPIM"></div></div>
-    <div class="card lhjmq"><h3>🥅 Trophée Gardien</h3><div id="trophyLhjmqVezina"></div></div>
-  </div>
-</section>
-
-</main>
-
-<!-- ============ ADMIN UI ============ -->
-
-<!-- Boutons flottants admin -->
-<div class="admin-btn-container">
-  <button class="admin-download-btn" id="adminDownloadBtn" onclick="downloadDataJson()">💾 Télécharger data.json</button>
-  <button class="admin-trigger" id="adminTrigger" onclick="toggleAdminMode()">🔒 Admin</button>
-</div>
-
-<!-- Modal: Login admin -->
-<div class="modal-overlay" id="loginModal">
-  <div class="modal">
-    <h3>🔐 Connexion Admin</h3>
-    <div class="modal-info">
-      Entrez le mot de passe admin pour accéder aux fonctions de modification (ajouter joueurs, modifier stats, gérer le classement).
-    </div>
-    <div class="modal-form-group">
-      <label>Mot de passe</label>
-      <input type="password" id="adminPasswordInput" placeholder="••••••••••••••" onkeydown="if(event.key==='Enter')checkPassword()">
-    </div>
-    <div id="loginError" style="color:#ef4444;font-size:13px;display:none;margin-bottom:10px;">❌ Mot de passe incorrect</div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('loginModal')">Annuler</button>
-      <button class="btn btn-primary" onclick="checkPassword()">Se connecter</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Modifier joueur -->
-<div class="modal-overlay" id="playerModal">
-  <div class="modal">
-    <h3 id="playerModalTitle">✏️ Modifier joueur</h3>
-    <div class="modal-form-group">
-      <label>Nom du joueur (Gamertag)</label>
-      <input type="text" id="pName" placeholder="ex: TonGamertag_PSN">
-    </div>
-    <div class="modal-grid">
-      <div class="modal-form-group">
-        <label>Équipe</label>
-        <select id="pTeam"></select>
+      <!-- Projet 4 -->
+      <div class="portfolio-card reveal" data-category="createur" data-id="3">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg,#0d0a1a,#2d1b69);">
+          <div class="portfolio-thumb-inner">
+            <span style="font-size:2.5rem;">🎮</span>
+            <span class="portfolio-thumb-label">StreamKing</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Streamer / Créateur</div>
+          <div class="portfolio-title">StreamKing</div>
+          <p class="portfolio-desc">Hub personnel avec planning de stream, liens Twitch/Discord/YouTube, boutique et overlay.</p>
+        </div>
       </div>
-      <div class="modal-form-group">
-        <label>Position</label>
-        <select id="pPosition">
-          <option value="F">Attaquant (F)</option>
-          <option value="D">Défenseur (D)</option>
-        </select>
+      <!-- Projet 5 -->
+      <div class="portfolio-card reveal reveal-delay-1" data-category="sport" data-id="4">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg,#0a0f1a,#0f2d5c);">
+          <div class="portfolio-thumb-inner">
+            <span style="font-size:2.5rem;">⚽</span>
+            <span class="portfolio-thumb-label">Club Soccer</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Organisation sportive</div>
+          <div class="portfolio-title">Club de soccer Lévis</div>
+          <p class="portfolio-desc">Site complet pour club sportif avec inscription en ligne, horaires d'entraînement et galerie.</p>
+        </div>
+      </div>
+      <!-- Projet 6 : Placeholder -->
+      <div class="portfolio-card reveal reveal-delay-2" data-category="vitrine" data-id="5">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg,#1a100a,#3d2a0f);">
+          <div class="portfolio-thumb-inner">
+            <span style="font-size:2.5rem;">🔧</span>
+            <span class="portfolio-thumb-label">Garage Pro</span>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">PME locale</div>
+          <div class="portfolio-title">Garage Pro Auto</div>
+          <p class="portfolio-desc">Site vitrine pour garage avec liste de services, prise de rendez-vous et avis Google intégrés.</p>
+        </div>
       </div>
     </div>
-    <h4 style="font-family:'Bebas Neue';font-size:18px;letter-spacing:1px;color:var(--text-secondary);margin:20px 0 10px;">📊 Statistiques</h4>
-    <div class="modal-grid-3">
-      <div class="modal-form-group"><label>PJ</label><input type="number" id="pGp" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Buts</label><input type="number" id="pG" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Passes</label><input type="number" id="pA" min="0" value="0"></div>
-      <div class="modal-form-group"><label>+/-</label><input type="number" id="pPM" value="0"></div>
-      <div class="modal-form-group"><label>Punitions (PIM)</label><input type="number" id="pPim" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Tirs</label><input type="number" id="pShots" min="0" value="0"></div>
-      <div class="modal-form-group"><label>%Tirs</label><input type="number" id="pShotPct" min="0" max="100" step="0.1" value="0"></div>
-      <div class="modal-form-group"><label>TG/Match (mm:ss)</label><input type="text" id="pToi" placeholder="0:00" value="0:00"></div>
-      <div class="modal-form-group"><label>%MAJ</label><input type="number" id="pFoPct" min="0" max="100" step="0.1" value="0"></div>
-    </div>
-    <div class="modal-info" style="background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.3);color:#86efac;">
-      💡 PTS sera calculé automatiquement (Buts + Passes)
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('playerModal')">Annuler</button>
-      <button class="btn btn-primary" onclick="savePlayer()">Enregistrer</button>
-    </div>
+  </div>
+</section>
+
+<!-- Portfolio Modal -->
+<div class="modal-overlay" id="portfolio-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-thumb" id="modal-thumb"></div>
+    <span class="modal-type" id="modal-type"></span>
+    <h3 class="modal-title" id="modal-title"></h3>
+    <p class="modal-desc" id="modal-desc"></p>
+    <div class="modal-techs" id="modal-techs"></div>
+    <a class="btn btn-primary" id="modal-link" target="_blank" rel="noopener">Voir le site →</a>
   </div>
 </div>
 
-<!-- Modal: Modifier gardien -->
-<div class="modal-overlay" id="goalieModal">
-  <div class="modal">
-    <h3 id="goalieModalTitle">✏️ Modifier gardien</h3>
-    <div class="modal-form-group">
-      <label>Nom du gardien</label>
-      <input type="text" id="gName" placeholder="ex: TonGardien_PSN">
+<!-- ==============================
+     TARIFS
+============================== -->
+<section id="tarifs" class="section section-alt">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Tarification transparente</div>
+      <h2 class="section-title">Forfaits &amp; prix</h2>
+      <p class="section-sub">Des forfaits clairs, sans surprise. Toutes les taxes en sus. Paiement en deux versements.</p>
     </div>
-    <div class="modal-form-group">
-      <label>Équipe</label>
-      <select id="gTeam"></select>
-    </div>
-    <h4 style="font-family:'Bebas Neue';font-size:18px;letter-spacing:1px;color:var(--text-secondary);margin:20px 0 10px;">🥅 Statistiques</h4>
-    <div class="modal-grid-3">
-      <div class="modal-form-group"><label>PJ</label><input type="number" id="gGp" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Victoires</label><input type="number" id="gW" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Défaites</label><input type="number" id="gL" min="0" value="0"></div>
-      <div class="modal-form-group"><label>DP</label><input type="number" id="gOtl" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Moy. (BC/match)</label><input type="number" id="gGaa" min="0" step="0.01" value="0"></div>
-      <div class="modal-form-group"><label>%Arrêts (0-1)</label><input type="number" id="gSvPct" min="0" max="1" step="0.001" value="0" placeholder="ex: 0.925"></div>
-      <div class="modal-form-group"><label>Blanchissages</label><input type="number" id="gSo" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Tirs reçus</label><input type="number" id="gSa" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Arrêts</label><input type="number" id="gSv" min="0" value="0"></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('goalieModal')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveGoalie()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Modifier classement équipe -->
-<div class="modal-overlay" id="teamModal">
-  <div class="modal">
-    <h3 id="teamModalTitle">✏️ Modifier classement</h3>
-    <div class="modal-info" id="teamModalSubtitle"></div>
-    <div class="modal-grid-3">
-      <div class="modal-form-group"><label>PJ (parties jouées)</label><input type="number" id="tGp" min="0" value="0"></div>
-      <div class="modal-form-group"><label>V (victoires)</label><input type="number" id="tW" min="0" value="0"></div>
-      <div class="modal-form-group"><label>D (défaites)</label><input type="number" id="tL" min="0" value="0"></div>
-      <div class="modal-form-group"><label>DP (déf. prol.)</label><input type="number" id="tOtl" min="0" value="0"></div>
-      <div class="modal-form-group"><label>DF (déf. fusil.)</label><input type="number" id="tSol" min="0" value="0"></div>
-      <div class="modal-form-group"><label>BP (buts pour)</label><input type="number" id="tGf" min="0" value="0"></div>
-      <div class="modal-form-group"><label>BC (buts contre)</label><input type="number" id="tGa" min="0" value="0"></div>
-      <div class="modal-form-group"><label>Série (V3, D2, etc.)</label><input type="text" id="tStreak" placeholder="-" value="-"></div>
-    </div>
-    <div class="modal-info" style="background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.3);color:#86efac;">
-      💡 PTS calculé auto: V×2 + DP×1 + DF×1
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('teamModal')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveTeam()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal: Confirmer suppression -->
-<div class="modal-overlay" id="confirmModal">
-  <div class="modal" style="max-width:450px;">
-    <h3>⚠️ Confirmer</h3>
-    <p id="confirmMessage" style="color:var(--text-secondary);margin-bottom:20px;">Êtes-vous sûr?</p>
-    <div class="modal-actions">
-      <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Annuler</button>
-      <button class="btn btn-danger" id="confirmActionBtn">Supprimer</button>
+    <div class="tarifs-grid">
+      <!-- Essentiel -->
+      <div class="tarif-card reveal">
+        <div class="tarif-name">Essentiel</div>
+        <div class="tarif-price">499 $<span> +tx</span></div>
+        <div class="tarif-tagline">Parfait pour débuter en ligne rapidement.</div>
+        <div class="tarif-features">
+          <div class="tarif-feature"><span class="check"></span>Site 1 à 3 pages</div>
+          <div class="tarif-feature"><span class="check"></span>Design sur mesure</div>
+          <div class="tarif-feature"><span class="check"></span>100% responsive (mobile)</div>
+          <div class="tarif-feature"><span class="check"></span>Formulaire de contact</div>
+          <div class="tarif-feature"><span class="check"></span>Hébergement GitHub Pages</div>
+          <div class="tarif-feature"><span class="check"></span>SEO de base</div>
+          <div class="tarif-feature"><span class="check"></span>Livraison en ~1 semaine</div>
+        </div>
+        <a href="#devis" class="btn btn-outline" style="width:100%;justify-content:center;">Choisir ce forfait</a>
+      </div>
+      <!-- Pro (featured) -->
+      <div class="tarif-card featured reveal reveal-delay-1">
+        <div class="tarif-badge">⭐ Le plus populaire</div>
+        <div class="tarif-name">Pro</div>
+        <div class="tarif-price">999 $<span> +tx</span></div>
+        <div class="tarif-tagline">Le choix idéal pour les PME et créateurs sérieux.</div>
+        <div class="tarif-features">
+          <div class="tarif-feature"><span class="check"></span>Site 4 à 8 pages</div>
+          <div class="tarif-feature"><span class="check"></span>Design premium + animations</div>
+          <div class="tarif-feature"><span class="check"></span>Galerie photo/vidéo</div>
+          <div class="tarif-feature"><span class="check"></span>Formulaire devis avancé</div>
+          <div class="tarif-feature"><span class="check"></span>Google Maps &amp; réseaux sociaux</div>
+          <div class="tarif-feature"><span class="check"></span>SEO optimisé</div>
+          <div class="tarif-feature"><span class="check"></span>Livraison en ~2 semaines</div>
+          <div class="tarif-feature"><span class="check"></span>1 mois de support inclus</div>
+        </div>
+        <a href="#devis" class="btn btn-primary" style="width:100%;justify-content:center;">Choisir ce forfait</a>
+      </div>
+      <!-- Sur mesure -->
+      <div class="tarif-card reveal reveal-delay-2">
+        <div class="tarif-name">Sur mesure</div>
+        <div class="tarif-price">Sur devis</div>
+        <div class="tarif-tagline">Pour les projets complexes avec des besoins spécifiques.</div>
+        <div class="tarif-features">
+          <div class="tarif-feature"><span class="check"></span>Pages illimitées</div>
+          <div class="tarif-feature"><span class="check"></span>Fonctionnalités avancées</div>
+          <div class="tarif-feature"><span class="check"></span>Portail membre / stats live</div>
+          <div class="tarif-feature"><span class="check"></span>Base de données Firebase</div>
+          <div class="tarif-feature"><span class="check"></span>Tableau de bord admin</div>
+          <div class="tarif-feature"><span class="check"></span>Calendrier &amp; réservations</div>
+          <div class="tarif-feature"><span class="check"></span>Délai selon la complexité</div>
+          <div class="tarif-feature"><span class="check"></span>Support continu inclus</div>
+        </div>
+        <a href="#devis" class="btn btn-outline" style="width:100%;justify-content:center;">Discuter de mon projet</a>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
+<!-- ==============================
+     PROCESSUS
+============================== -->
+<section id="processus" class="section">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Comment ça marche</div>
+      <h2 class="section-title">Mon processus en 5 étapes</h2>
+      <p class="section-sub">Simple, transparent et efficace. De la première discussion à la mise en ligne.</p>
+    </div>
+    <div class="processus-grid">
+      <div class="processus-step reveal">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div class="step-num">1</div>
+        </div>
+        <div class="step-title">Discussion</div>
+        <p class="step-desc">On parle de votre projet, vos besoins et votre vision. Appel ou messagerie, à votre choix.</p>
+      </div>
+      <div class="processus-step reveal reveal-delay-1">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="step-num">2</div>
+        </div>
+        <div class="step-title">Devis</div>
+        <p class="step-desc">Je vous envoie une soumission détaillée dans les 24h. Prix fixe, sans surprise.</p>
+      </div>
+      <div class="processus-step reveal reveal-delay-2">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+          <div class="step-num">3</div>
+        </div>
+        <div class="step-title">Maquette</div>
+        <p class="step-desc">Je crée une maquette visuelle de votre site. Vous l'approuvez avant que je commence à coder.</p>
+      </div>
+      <div class="processus-step reveal reveal-delay-3">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><polyline points="16,18 22,12 16,6"/><polyline points="8,6 2,12 8,18"/></svg>
+          <div class="step-num">4</div>
+        </div>
+        <div class="step-title">Développement</div>
+        <p class="step-desc">Je code votre site, vous suivez l'avancement. Retours et ajustements inclus.</p>
+      </div>
+      <div class="processus-step reveal reveal-delay-4">
+        <div class="step-circle">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+          <div class="step-num">5</div>
+        </div>
+        <div class="step-title">Mise en ligne</div>
+        <p class="step-desc">Déploiement, tests sur tous les appareils, et remise des clés. Votre site est live! 🚀</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     TÉMOIGNAGES
+============================== -->
+<section id="temoignages" class="section section-alt">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Ce qu'ils disent</div>
+      <h2 class="section-title">Témoignages clients</h2>
+    </div>
+    <div class="temoignages-grid">
+      <div class="temoignage-card reveal">
+        <div class="temoignage-stars">★★★★★</div>
+        <p class="temoignage-text">"KV Studio a transformé notre présence en ligne. Le site est magnifique, rapide et nos clients le complimentent constamment. Livré en 10 jours, exactement ce qu'on avait demandé."</p>
+        <div class="temoignage-author">
+          <div class="author-avatar" style="background:rgba(34,211,238,0.12);color:#22D3EE;">ML</div>
+          <div>
+            <div class="author-name">Marie-Lyne Tremblay</div>
+            <div class="author-project">Propriétaire — Restaurant au Vieux-Port</div>
+          </div>
+        </div>
+      </div>
+      <div class="temoignage-card reveal reveal-delay-1">
+        <div class="temoignage-stars">★★★★★</div>
+        <p class="temoignage-text">"J'avais besoin d'un site pro pour ma chaîne. Kevin a tout compris dès la première discussion. Le résultat est exactement dans mon univers visuel, et ça tourne parfaitement sur mobile."</p>
+        <div class="temoignage-author">
+          <div class="author-avatar" style="background:rgba(124,58,237,0.15);color:#7C3AED;">JF</div>
+          <div>
+            <div class="author-name">JF_Gaming</div>
+            <div class="author-project">Streamer Twitch — 8k abonnés</div>
+          </div>
+        </div>
+      </div>
+      <div class="temoignage-card reveal reveal-delay-2">
+        <div class="temoignage-stars">★★★★★</div>
+        <p class="temoignage-text">"Notre ligue de hockey avait besoin d'un système complet de stats et de classements. KV Studio a livré quelque chose qui dépasse toutes nos attentes. Nos joueurs adorent!"</p>
+        <div class="temoignage-author">
+          <div class="author-avatar" style="background:rgba(34,211,238,0.12);color:#22D3EE;">SB</div>
+          <div>
+            <div class="author-name">Simon Beaupré</div>
+            <div class="author-project">Commissaire — Ligue de hockey en ligne</div>
+          </div>
+        </div>
+      </div>
+      <div class="temoignage-card reveal reveal-delay-3">
+        <div class="temoignage-stars">★★★★★</div>
+        <p class="temoignage-text">"Prix honnête, communication claire et résultat professionnel. Notre boutique a vraiment une image à la hauteur maintenant. Je recommande KV Studio sans hésitation."</p>
+        <div class="temoignage-author">
+          <div class="author-avatar" style="background:rgba(124,58,237,0.15);color:#7C3AED;">CR</div>
+          <div>
+            <div class="author-name">Caroline Roy</div>
+            <div class="author-project">Propriétaire — Boutique artisanale</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     FORMULAIRE DEVIS
+============================== -->
+<section id="devis" class="section">
+  <div class="container">
+    <div class="devis-inner">
+      <div class="devis-info reveal">
+        <div class="section-label">Contact</div>
+        <h3>Parlons de votre projet</h3>
+        <p>Remplissez le formulaire et je vous réponds dans les 24h avec une soumission détaillée. Aucun engagement.</p>
+        <div class="devis-points">
+          <div class="devis-point">
+            <div class="devis-point-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6.18 6.18l.91-1.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="devis-point-title">Réponse rapide</div>
+              <p class="devis-point-text">Je vous rappelle ou réponds par courriel dans les 24h ouvrables.</p>
+            </div>
+          </div>
+          <div class="devis-point">
+            <div class="devis-point-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="devis-point-title">Prix fixe, sans surprise</div>
+              <p class="devis-point-text">La soumission est claire et inclut tout. Pas de frais cachés.</p>
+            </div>
+          </div>
+          <div class="devis-point">
+            <div class="devis-point-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            </div>
+            <div>
+              <div class="devis-point-title">Délais respectés</div>
+              <p class="devis-point-text">Je m'engage sur un délai précis et je le tiens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <!--
+          FORMSPREE : Créez votre compte sur https://formspree.io
+          Remplacez YOUR_FORM_ID par votre identifiant de formulaire.
+          Ex : action="https://formspree.io/f/xkgnrwby"
+        -->
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="devis-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nom">Nom complet *</label>
+              <input type="text" id="nom" name="nom" placeholder="Jean Tremblay" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Courriel *</label>
+              <input type="email" id="email" name="email" placeholder="jean@exemple.com" required>
+            </div>
+            <div class="form-group">
+              <label for="telephone">Téléphone</label>
+              <input type="tel" id="telephone" name="telephone" placeholder="418 555-0123">
+            </div>
+            <div class="form-group">
+              <label for="type">Type de projet *</label>
+              <select id="type" name="type" required>
+                <option value="" disabled selected>Choisissez…</option>
+                <option>Site vitrine (PME, restaurant, commerce)</option>
+                <option>Site créateur / streamer / influenceur</option>
+                <option>Site ligue sportive / organisation</option>
+                <option>Refonte de site existant</option>
+                <option>Hébergement / maintenance</option>
+                <option>Autre / Je ne sais pas encore</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="budget">Budget approximatif</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Choisissez…</option>
+                <option>Moins de 500 $</option>
+                <option>500 $ – 1 000 $</option>
+                <option>1 000 $ – 2 000 $</option>
+                <option>2 000 $ et plus</option>
+                <option>Pas encore défini</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Décrivez votre projet *</label>
+              <textarea id="message" name="message" placeholder="Parlez-moi de votre projet : ce que vous voulez, votre audience cible, les fonctionnalités souhaitées…" required></textarea>
+            </div>
+            <div class="form-submit-wrap">
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Envoyer ma demande →</button>
+              <p class="form-note">* Champs obligatoires. Vos informations ne seront jamais partagées.</p>
+              <div class="form-success" id="form-success">
+                ✅ Votre message a bien été envoyé! Je vous réponds dans les 24h.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     FAQ
+============================== -->
+<section id="faq" class="section section-alt">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Questions fréquentes</div>
+      <h2 class="section-title">FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <span>Combien ça coûte, un site web?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Les prix débutent à 499 $ pour un site vitrine simple (1 à 3 pages). Le forfait Pro à 999 $ couvre la majorité des projets PME, restaurant ou créateur. Pour les projets complexes avec base de données, portail membre ou fonctionnalités avancées, on discute d'une soumission personnalisée. Dans tous les cas, le prix est fixe et connu à l'avance — pas de mauvaises surprises.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-question">
+          <span>Ça prend combien de temps pour avoir mon site?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Un site Essentiel est livré en environ 1 semaine. Un site Pro prend environ 2 semaines. Les projets sur mesure varient selon la complexité, mais je vous donne toujours un délai précis dans la soumission — et je le respecte. Tout commence dès que le premier versement est confirmé.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <span>Puis-je modifier mon site moi-même après la livraison?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Absolument. Le code source vous appartient entièrement. Je vous explique les bases pour modifier le texte, les images et les couleurs. Pour les modifications plus complexes, je suis disponible à un tarif horaire avantageux. Le mois de support inclus dans le forfait Pro couvre les petits ajustements post-livraison.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <div class="faq-question">
+          <span>Vous faites l'hébergement du site?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Oui! Les sites simples sont hébergés gratuitement sur GitHub Pages (idéal pour les sites vitrine). Pour les projets plus complexes, je recommande et configure un hébergeur adapté à votre budget. Le nom de domaine est votre responsabilité, mais je vous guide étape par étape pour l'acheter et le connecter — c'est très simple.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <span>Vous travaillez avec des petits budgets?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Oui, c'est important pour moi. Le forfait Essentiel à 499 $ est conçu pour les projets avec un budget limité. Je propose aussi un paiement en deux versements (50 % au début, 50 % à la livraison). Si votre budget est encore plus serré, discutez-en avec moi — on trouve souvent une solution adaptée à la réalité des petites entreprises et des créateurs qui débutent.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     CONTACT & RÉSEAUX SOCIAUX
+============================== -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Me rejoindre</div>
+      <h2 class="section-title">Contact &amp; réseaux</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Travaillons ensemble</h3>
+        <p>Une question? Un projet en tête? Je suis basé au Québec et je réponds rapidement. N'hésitez pas à me contacter par courriel ou directement sur les réseaux.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <span>votre.email@kvstudio.ca <em style="color:var(--text-subtle);font-size:0.8rem;">(remplacez par votre vrai courriel)</em></span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <span>Québec, Canada 🍁</span>
+          </div>
+        </div>
+        <p class="social-title">Réseaux sociaux</p>
+        <div class="social-links">
+          <!-- Remplacez # par vos vrais liens -->
+          <a href="#" class="social-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="#" class="social-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+          <a href="#" class="social-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a href="#" class="social-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"/></svg>
+            YouTube
+          </a>
+        </div>
+      </div>
+      <div class="map-card reveal reveal-delay-1">
+        <div class="map-icon">📍</div>
+        <h4>Basé au Québec</h4>
+        <p>Je travaille avec des clients partout au Québec et au Canada. Tout se fait à distance — appel, messagerie, ou en personne si vous êtes dans la région.</p>
+        <a href="#devis" class="btn btn-primary btn-sm">Démarrer un projet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     FOOTER
+============================== -->
 <footer>
   <div class="container">
-    <p>LCHQ · Saison 6 · World of Chel · NHL 26</p>
-    <p style="margin-top: 6px;">Bâti avec <span class="heart">♥</span> pour la communauté</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#accueil" class="nav-logo">
+          <span class="logo-kv">KV</span>
+          <span class="logo-studio">Studio</span>
+        </a>
+        <p>Sites web modernes, livrés rapidement, à prix juste. Fièrement québécois 🍁</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#processus">Processus</a></li>
+          <li><a href="#temoignages">Témoignages</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#devis">Demander un devis</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Me rejoindre</a></li>
+          <li><a href="https://ultra631.github.io/LCHQ/" target="_blank" rel="noopener">LCHQ (exemple)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© <span id="year"></span> KV Studio. Tous droits réservés.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">Conditions d'utilisation</a>
+      </div>
+    </div>
   </div>
 </footer>
 
+<!-- ==============================
+     JAVASCRIPT
+============================== -->
 <script>
-let DATA = null;
-let standingsNhlSort = { key: 'pts', dir: 'desc' };
-let standingsLhjmqSort = { key: 'pts', dir: 'desc' };
-let playersNhlSort = { key: 'pts', dir: 'desc' };
-let playersLhjmqSort = { key: 'pts', dir: 'desc' };
-let goaliesNhlSort = { key: 'w', dir: 'desc' };
-let goaliesLhjmqSort = { key: 'w', dir: 'desc' };
-
-async function loadData() {
-  try {
-    const res = await fetch('data.json');
-    DATA = await res.json();
-  } catch (e) {
-    console.error('Erreur chargement data.json:', e);
-    document.body.innerHTML = '<div style="padding:40px;text-align:center;color:#fff;background:#0a0a0f;min-height:100vh;"><h1 style="color:#e63946;">⚠️ Erreur</h1><p>Impossible de charger <code>data.json</code>.</p><p style="margin-top:12px;font-size:13px;color:#7a7a8c;">Assure-toi que le fichier <strong>data.json</strong> est dans le même dossier que <strong>index.html</strong>.</p></div>';
-    return;
-  }
-  initApp();
-}
-
-function initApp() {
-  populateTeamFilters();
-  renderHome();
-  renderStandingsNHL();
-  renderStandingsLHJMQ();
-  renderPlayersNHL();
-  renderPlayersLHJMQ();
-  renderGoaliesNHL();
-  renderGoaliesLHJMQ();
-  renderTeamsGrids();
-  renderTrophiesNHL();
-  renderTrophiesLHJMQ();
-  setupSortHandlers();
-}
-
-// NAVIGATION
-function navigate(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
-  if (target) target.classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.querySelector(`.nav-btn[data-page="${page}"]`);
-  if (btn) btn.classList.add('active');
-  document.getElementById('mainNav').classList.remove('open');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function toggleMenu() {
-  document.getElementById('mainNav').classList.toggle('open');
-}
-
-// LOGO HELPER — affiche le vrai logo, fallback sur emoji
-function teamLogoHtml(team, size = 'table') {
-  const cls = size === 'table' ? 'team-logo-table' : 'team-card-logo';
-  if (team.logo) {
-    return `<img src="${team.logo}" alt="${escapeHtml(team.name)}" class="${cls}" onerror="this.outerHTML='<span class=\\'team-emoji-fallback\\'>${team.emoji}</span>'">`;
-  }
-  return `<span class="team-emoji-fallback">${team.emoji}</span>`;
-}
-
-// HOME
-function renderHome() {
-  const nhlPlayers = DATA.players.filter(p => DATA.teams[p.team].division === 'nhl');
-  const lhjmqPlayers = DATA.players.filter(p => DATA.teams[p.team].division === 'lhjmq');
-  const nhlGoalies = DATA.goalies.filter(g => DATA.teams[g.team].division === 'nhl');
-  const lhjmqGoalies = DATA.goalies.filter(g => DATA.teams[g.team].division === 'lhjmq');
-
-  document.getElementById('nhlTopGoals').innerHTML = renderLeaderList([...nhlPlayers].sort((a,b)=>b.g-a.g).slice(0,5), 'g');
-  document.getElementById('nhlTopPoints').innerHTML = renderLeaderList([...nhlPlayers].sort((a,b)=>b.pts-a.pts).slice(0,5), 'pts');
-  document.getElementById('nhlTopGoalies').innerHTML = renderGoalieLeaderList([...nhlGoalies].sort((a,b)=>b.w-a.w).slice(0,5), 'w');
-
-  document.getElementById('lhjmqTopGoals').innerHTML = renderLeaderList([...lhjmqPlayers].sort((a,b)=>b.g-a.g).slice(0,5), 'g');
-  document.getElementById('lhjmqTopPoints').innerHTML = renderLeaderList([...lhjmqPlayers].sort((a,b)=>b.pts-a.pts).slice(0,5), 'pts');
-  document.getElementById('lhjmqTopGoalies').innerHTML = renderGoalieLeaderList([...lhjmqGoalies].sort((a,b)=>b.w-a.w).slice(0,5), 'w');
-}
-
-function renderLeaderList(players, statKey) {
-  if (!players.length) return '<div class="empty-state"><p>Aucune donnée</p></div>';
-  return players.map((p, i) => {
-    const team = DATA.teams[p.team];
-    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-    const logoHtml = team.logo ? `<img src="${team.logo}" class="team-mini-logo" onerror="this.outerHTML='${team.emoji}'">` : team.emoji;
-    return `
-      <div class="leader-row">
-        <div class="leader-rank ${rankClass}">${i + 1}</div>
-        <div class="leader-info">
-          <div class="leader-name">${escapeHtml(p.name)}</div>
-          <div class="leader-team">${logoHtml} ${team.name}</div>
-        </div>
-        <div class="leader-stat">${p[statKey]}</div>
-      </div>`;
-  }).join('');
-}
-
-function renderGoalieLeaderList(goalies, statKey) {
-  if (!goalies.length) return '<div class="empty-state"><p>Aucune donnée</p></div>';
-  return goalies.map((g, i) => {
-    const team = DATA.teams[g.team];
-    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-    const logoHtml = team.logo ? `<img src="${team.logo}" class="team-mini-logo" onerror="this.outerHTML='${team.emoji}'">` : team.emoji;
-    return `
-      <div class="leader-row">
-        <div class="leader-rank ${rankClass}">${i + 1}</div>
-        <div class="leader-info">
-          <div class="leader-name">${escapeHtml(g.name)}</div>
-          <div class="leader-team">${logoHtml} ${team.name}</div>
-        </div>
-        <div class="leader-stat">${g[statKey]}</div>
-      </div>`;
-  }).join('');
-}
-
-// STANDINGS
-function renderStandingsByDivision(division, sort, bodyId) {
-  let teams = Object.entries(DATA.teams)
-    .filter(([_, t]) => t.division === division)
-    .map(([key, t]) => ({ key, ...t, diff: t.record.gf - t.record.ga, ...t.record }));
-
-  teams.sort((a, b) => {
-    let av = a[sort.key], bv = b[sort.key];
-    if (sort.dir === 'desc') return bv - av || b.pts - a.pts;
-    return av - bv || a.pts - b.pts;
-  });
-
-  document.getElementById(bodyId).innerHTML = teams.map((t, i) => {
-    const diffClass = t.diff > 0 ? 'diff-pos' : t.diff < 0 ? 'diff-neg' : '';
-    const diffStr = t.diff > 0 ? `+${t.diff}` : t.diff;
-    const streakClass = t.record.streak.startsWith('V') ? 'streak-w' : t.record.streak.startsWith('D') ? 'streak-l' : '';
-    const adminActions = `<span class="admin-row-actions">
-      <button class="row-action-btn" onclick="event.stopPropagation();openTeamModal('${t.key}')" title="Modifier classement">✏️</button>
-    </span>`;
-    return `
-      <tr onclick="if(!document.body.classList.contains('admin-mode'))showTeamDetail('${t.key}')">
-        <td class="num">${i + 1}</td>
-        <td><div class="team-cell">${teamLogoHtml(t)}<span>${t.name}</span> ${adminActions}</div></td>
-        <td class="num">${t.gp}</td>
-        <td class="num">${t.w}</td>
-        <td class="num">${t.l}</td>
-        <td class="num">${t.otl}</td>
-        <td class="num">${t.sol}</td>
-        <td class="num">${t.gf}</td>
-        <td class="num">${t.ga}</td>
-        <td class="num ${diffClass}">${diffStr}</td>
-        <td class="num ${streakClass}">${t.record.streak}</td>
-        <td class="num pts-cell">${t.pts}</td>
-      </tr>`;
-  }).join('');
-}
-
-function renderStandingsNHL() { renderStandingsByDivision('nhl', standingsNhlSort, 'standingsNhlBody'); }
-function renderStandingsLHJMQ() { renderStandingsByDivision('lhjmq', standingsLhjmqSort, 'standingsLhjmqBody'); }
-
-// PLAYERS
-function populateTeamFilters() {
-  const nhlSel = document.getElementById('playerNhlTeamFilter');
-  const lhjmqSel = document.getElementById('playerLhjmqTeamFilter');
-  Object.entries(DATA.teams).sort((a, b) => a[1].name.localeCompare(b[1].name)).forEach(([k, t]) => {
-    const opt = document.createElement('option');
-    opt.value = k;
-    opt.textContent = `${t.emoji} ${t.name}`;
-    if (t.division === 'nhl') nhlSel.appendChild(opt);
-    else lhjmqSel.appendChild(opt.cloneNode(true)) || lhjmqSel.appendChild(opt);
-  });
-  // fix - re-iterate for lhjmq
-  Object.entries(DATA.teams).filter(([_, t]) => t.division === 'lhjmq').sort((a, b) => a[1].name.localeCompare(b[1].name)).forEach(([k, t]) => {
-    if (![...lhjmqSel.options].some(o => o.value === k)) {
-      const opt = document.createElement('option');
-      opt.value = k;
-      opt.textContent = `${t.emoji} ${t.name}`;
-      lhjmqSel.appendChild(opt);
+  /* --- Données Portfolio --- */
+  const projects = [
+    {
+      title: "LCHQ — Ligue de hockey",
+      type: "Ligue sportive",
+      desc: "Site complet de gestion de ligue de hockey compétitive sur NHL 26. Statistiques en temps réel via Firebase, classements, profils joueurs, gardiens, calendriers et gestion admin complète.",
+      techs: ["HTML", "CSS", "JavaScript", "Firebase"],
+      link: "https://ultra631.github.io/LCHQ/",
+      bg: "linear-gradient(135deg,#0f172a,#1e3a5f)",
+      emoji: "🏒",
+      isReal: true
+    },
+    {
+      title: "La Bella Cucina",
+      type: "Restaurant",
+      desc: "Site vitrine pour un restaurant italien haut de gamme. Menu interactif avec photos, galerie des plats, système de réservation en ligne et section événements spéciaux.",
+      techs: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      bg: "linear-gradient(135deg,#1a0a0a,#3d1515)",
+      emoji: "🍽️",
+      isReal: false
+    },
+    {
+      title: "Boutique Nordik",
+      type: "Commerce local",
+      desc: "Boutique artisanale locale avec catalogue produits, section promotions, formulaire de commande personnalisé et intégration Google Maps pour la localisation.",
+      techs: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      bg: "linear-gradient(135deg,#0a1a0a,#153d20)",
+      emoji: "🛍️",
+      isReal: false
+    },
+    {
+      title: "StreamKing",
+      type: "Streamer / Créateur",
+      desc: "Hub personnel complet pour streamer Twitch. Planning de streams, liens vers toutes les plateformes, boutique merch intégrée, compte à rebours prochain live et page de dons.",
+      techs: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      bg: "linear-gradient(135deg,#0d0a1a,#2d1b69)",
+      emoji: "🎮",
+      isReal: false
+    },
+    {
+      title: "Club de soccer Lévis",
+      type: "Organisation sportive",
+      desc: "Site complet pour un club sportif. Inscription en ligne, horaires d'entraînement, résultats des matchs, galerie photos de la saison et formulaire de contact pour les entraîneurs.",
+      techs: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      bg: "linear-gradient(135deg,#0a0f1a,#0f2d5c)",
+      emoji: "⚽",
+      isReal: false
+    },
+    {
+      title: "Garage Pro Auto",
+      type: "PME locale",
+      desc: "Site vitrine professionnel pour garage automobile. Liste des services avec prix, prise de rendez-vous en ligne, section promotions saisonnières et avis Google intégrés.",
+      techs: ["HTML", "CSS", "JavaScript"],
+      link: "#",
+      bg: "linear-gradient(135deg,#1a100a,#3d2a0f)",
+      emoji: "🔧",
+      isReal: false
     }
-  });
-}
+  ];
 
-function renderPlayersByDivision(division, sort, searchId, teamFilterId, bodyId) {
-  const search = document.getElementById(searchId).value.toLowerCase();
-  const teamF = document.getElementById(teamFilterId).value;
+  /* --- Nav scroll & hamburger --- */
+  const navbar = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
 
-  let players = DATA.players.filter(p => {
-    if (DATA.teams[p.team].division !== division) return false;
-    if (search && !p.name.toLowerCase().includes(search)) return false;
-    if (teamF && p.team !== teamF) return false;
-    return true;
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  players.sort((a, b) => {
-    let av = a[sort.key], bv = b[sort.key];
-    if (typeof av === 'string') return sort.dir === 'desc' ? bv.localeCompare(av) : av.localeCompare(bv);
-    return sort.dir === 'desc' ? bv - av : av - bv;
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMobile.classList.toggle('open');
   });
 
-  document.getElementById(bodyId).innerHTML = players.map((p, i) => {
-    const team = DATA.teams[p.team];
-    const pmClass = p.plusminus > 0 ? 'diff-pos' : p.plusminus < 0 ? 'diff-neg' : '';
-    const pmStr = p.plusminus > 0 ? `+${p.plusminus}` : p.plusminus;
-    const adminActions = `<span class="admin-row-actions">
-      <button class="row-action-btn" onclick="event.stopPropagation();openPlayerModal('${p.id}', '${division}')" title="Modifier">✏️</button>
-      <button class="row-action-btn delete" onclick="event.stopPropagation();confirmDeletePlayer('${p.id}')" title="Supprimer">🗑️</button>
-    </span>`;
-    return `
-      <tr onclick="if(!document.body.classList.contains('admin-mode'))showTeamDetail('${p.team}')">
-        <td class="num">${i + 1}</td>
-        <td style="font-weight: 600;">${escapeHtml(p.name)} ${adminActions}</td>
-        <td><div class="team-cell">${teamLogoHtml(team)}<span>${team.name}</span></div></td>
-        <td>${p.position}</td>
-        <td class="num">${p.gp}</td>
-        <td class="num">${p.g}</td>
-        <td class="num">${p.a}</td>
-        <td class="num pts-cell">${p.pts}</td>
-        <td class="num ${pmClass}">${pmStr}</td>
-        <td class="num">${p.pim}</td>
-        <td class="num">${p.shots}</td>
-        <td class="num">${p.shotpct.toFixed(1)}%</td>
-        <td class="num">${p.toi}</td>
-        <td class="num">${p.fopct.toFixed(1)}%</td>
-      </tr>`;
-  }).join('') || '<tr><td colspan="14" class="empty-state">Aucun joueur trouvé.</td></tr>';
-}
+  navMobile.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMobile.classList.remove('open');
+    });
+  });
 
-function renderPlayersNHL() { renderPlayersByDivision('nhl', playersNhlSort, 'playerNhlSearch', 'playerNhlTeamFilter', 'playersNhlBody'); }
-function renderPlayersLHJMQ() { renderPlayersByDivision('lhjmq', playersLhjmqSort, 'playerLhjmqSearch', 'playerLhjmqTeamFilter', 'playersLhjmqBody'); }
+  /* --- Portfolio Modal --- */
+  const modal = document.getElementById('portfolio-modal');
+  const modalClose = document.getElementById('modal-close');
+  const modalThumb = document.getElementById('modal-thumb');
+  const modalType = document.getElementById('modal-type');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalTechs = document.getElementById('modal-techs');
+  const modalLink = document.getElementById('modal-link');
 
-// GOALIES
-function renderGoaliesByDivision(division, sort, bodyId) {
-  let goalies = DATA.goalies.filter(g => DATA.teams[g.team].division === division);
-  goalies.sort((a, b) => sort.dir === 'desc' ? b[sort.key] - a[sort.key] : a[sort.key] - b[sort.key]);
+  document.querySelectorAll('.portfolio-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.id);
+      const p = projects[id];
+      modalThumb.style.background = p.bg;
+      modalThumb.textContent = p.emoji;
+      modalType.textContent = p.type;
+      modalTitle.textContent = p.title;
+      modalDesc.textContent = p.desc;
+      modalTechs.innerHTML = p.techs.map(t => `<span class="tech-tag">${t}</span>`).join('');
+      if (p.isReal) {
+        modalLink.href = p.link;
+        modalLink.style.display = 'inline-flex';
+        modalLink.textContent = 'Voir le site →';
+      } else {
+        modalLink.style.display = 'none';
+      }
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
 
-  document.getElementById(bodyId).innerHTML = goalies.map((g, i) => {
-    const team = DATA.teams[g.team];
-    const adminActions = `<span class="admin-row-actions">
-      <button class="row-action-btn" onclick="event.stopPropagation();openGoalieModal('${g.id}', '${division}')" title="Modifier">✏️</button>
-      <button class="row-action-btn delete" onclick="event.stopPropagation();confirmDeleteGoalie('${g.id}')" title="Supprimer">🗑️</button>
-    </span>`;
-    return `
-      <tr onclick="if(!document.body.classList.contains('admin-mode'))showTeamDetail('${g.team}')">
-        <td class="num">${i + 1}</td>
-        <td style="font-weight: 600;">${escapeHtml(g.name)} ${adminActions}</td>
-        <td><div class="team-cell">${teamLogoHtml(team)}<span>${team.name}</span></div></td>
-        <td class="num">${g.gp}</td>
-        <td class="num pts-cell">${g.w}</td>
-        <td class="num">${g.l}</td>
-        <td class="num">${g.otl}</td>
-        <td class="num">${g.gaa.toFixed(2)}</td>
-        <td class="num">${(g.svpct * 100).toFixed(1)}%</td>
-        <td class="num">${g.so}</td>
-        <td class="num">${g.sa}</td>
-        <td class="num">${g.sv}</td>
-      </tr>`;
-  }).join('') || '<tr><td colspan="12" class="empty-state">Aucun gardien trouvé.</td></tr>';
-}
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-function renderGoaliesNHL() { renderGoaliesByDivision('nhl', goaliesNhlSort, 'goaliesNhlBody'); }
-function renderGoaliesLHJMQ() { renderGoaliesByDivision('lhjmq', goaliesLhjmqSort, 'goaliesLhjmqBody'); }
+  /* --- Portfolio Filtres --- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const portfolioCards = document.querySelectorAll('.portfolio-card');
 
-// TEAMS GRID
-function renderTeamCard(key, t) {
-  const logoHtml = t.logo
-    ? `<img src="${t.logo}" alt="${escapeHtml(t.name)}" class="team-card-logo" onerror="this.outerHTML='<div style=\\'font-size:64px;margin-bottom:10px;\\'>${t.emoji}</div>'">`
-    : `<div style="font-size: 64px; margin-bottom: 10px;">${t.emoji}</div>`;
-  return `
-    <div class="team-card" style="--team-color: ${t.color}" onclick="showTeamDetail('${key}')">
-      ${logoHtml}
-      <div class="team-card-name">${t.name}</div>
-      <div class="team-card-city">${t.city}</div>
-      <div class="team-card-record">${t.record.w}V – ${t.record.l}D – ${t.record.otl + t.record.sol}DP · ${t.record.pts} PTS</div>
-    </div>`;
-}
-
-function renderTeamsGrids() {
-  const nhlTeams = Object.entries(DATA.teams).filter(([_, t]) => t.division === 'nhl').sort((a, b) => a[1].name.localeCompare(b[1].name));
-  const lhjmqTeams = Object.entries(DATA.teams).filter(([_, t]) => t.division === 'lhjmq').sort((a, b) => a[1].name.localeCompare(b[1].name));
-  document.getElementById('teamsGridNhl').innerHTML = nhlTeams.map(([k, t]) => renderTeamCard(k, t)).join('');
-  document.getElementById('teamsGridLhjmq').innerHTML = lhjmqTeams.map(([k, t]) => renderTeamCard(k, t)).join('');
-}
-
-// TEAM DETAIL
-function showTeamDetail(teamKey) {
-  const t = DATA.teams[teamKey];
-  if (!t) return;
-  const affiliate = DATA.teams[t.affiliate];
-  const roster = DATA.players.filter(p => p.team === teamKey);
-  const goalie = DATA.goalies.find(g => g.team === teamKey);
-  const diff = t.record.gf - t.record.ga;
-
-  const teamLogoBig = t.logo
-    ? `<img src="${t.logo}" alt="${escapeHtml(t.name)}" class="team-header-logo" onerror="this.outerHTML='<div style=\\'font-size:80px;\\'>${t.emoji}</div>'">`
-    : `<div style="font-size: 80px;">${t.emoji}</div>`;
-
-  const affiliateLogoMini = affiliate && affiliate.logo
-    ? `<img src="${affiliate.logo}" alt="" onerror="this.outerHTML='<span>${affiliate.emoji}</span>'">`
-    : `<span>${affiliate ? affiliate.emoji : ''}</span>`;
-
-  document.getElementById('teamDetail').innerHTML = `
-    <div class="team-header" style="--team-color: ${t.color}">
-      ${teamLogoBig}
-      <div class="team-header-info">
-        <h2>${t.name}</h2>
-        <p>${t.city} · Division ${t.division.toUpperCase()}</p>
-        ${affiliate ? `<div class="affiliate-link" onclick="showTeamDetail('${t.affiliate}')">${affiliateLogoMini} ${t.division === 'nhl' ? 'Filiale ' : 'Club parent '}: ${affiliate.name} →</div>` : ''}
-      </div>
-      <div class="team-header-stats">
-        <div class="stat-block"><div class="stat-block-value">${t.record.pts}</div><div class="stat-block-label">Points</div></div>
-        <div class="stat-block"><div class="stat-block-value">${t.record.w}–${t.record.l}–${t.record.otl + t.record.sol}</div><div class="stat-block-label">V–D–DP</div></div>
-        <div class="stat-block"><div class="stat-block-value">${t.record.gf}</div><div class="stat-block-label">Buts pour</div></div>
-        <div class="stat-block"><div class="stat-block-value">${t.record.ga}</div><div class="stat-block-label">Buts contre</div></div>
-        <div class="stat-block"><div class="stat-block-value">${diff > 0 ? '+' : ''}${diff}</div><div class="stat-block-label">Différentiel</div></div>
-      </div>
-    </div>
-
-    <h3 class="section-title" style="font-size: 28px;">Roster</h3>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Joueur</th><th>Pos</th>
-            <th class="num">PJ</th><th class="num">B</th><th class="num">A</th><th class="num">PTS</th>
-            <th class="num">+/-</th><th class="num">PUN</th><th class="num">TIRS</th><th class="num">%T</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${roster.map(p => {
-            const pmClass = p.plusminus > 0 ? 'diff-pos' : p.plusminus < 0 ? 'diff-neg' : '';
-            const pmStr = p.plusminus > 0 ? `+${p.plusminus}` : p.plusminus;
-            return `<tr>
-              <td style="font-weight: 600;">${escapeHtml(p.name)}</td>
-              <td>${p.position}</td>
-              <td class="num">${p.gp}</td>
-              <td class="num">${p.g}</td>
-              <td class="num">${p.a}</td>
-              <td class="num pts-cell">${p.pts}</td>
-              <td class="num ${pmClass}">${pmStr}</td>
-              <td class="num">${p.pim}</td>
-              <td class="num">${p.shots}</td>
-              <td class="num">${p.shotpct.toFixed(1)}%</td>
-            </tr>`;
-          }).join('')}
-          ${goalie ? `<tr style="background: var(--bg-elevated);">
-            <td style="font-weight: 600;">🥅 ${escapeHtml(goalie.name)}</td>
-            <td>G</td>
-            <td class="num">${goalie.gp}</td>
-            <td class="num" colspan="2">${goalie.w}V – ${goalie.l}D – ${goalie.otl}DP</td>
-            <td class="num">${goalie.gaa.toFixed(2)} MOY</td>
-            <td class="num" colspan="3">${(goalie.svpct * 100).toFixed(1)}% ARR</td>
-            <td class="num">${goalie.so} BL</td>
-          </tr>` : ''}
-        </tbody>
-      </table>
-    </div>
-  `;
-  navigate('team-detail');
-}
-
-// TROPHIES
-function renderTrophiesNHL() {
-  const players = DATA.players.filter(p => DATA.teams[p.team].division === 'nhl');
-  const goalies = DATA.goalies.filter(g => DATA.teams[g.team].division === 'nhl');
-  document.getElementById('trophyNhlGoals').innerHTML = renderLeaderList([...players].sort((a,b)=>b.g-a.g).slice(0,5), 'g');
-  document.getElementById('trophyNhlPoints').innerHTML = renderLeaderList([...players].sort((a,b)=>b.pts-a.pts).slice(0,5), 'pts');
-  document.getElementById('trophyNhlAssists').innerHTML = renderLeaderList([...players].sort((a,b)=>b.a-a.a).slice(0,5), 'a');
-  document.getElementById('trophyNhlPM').innerHTML = renderLeaderList([...players].sort((a,b)=>b.plusminus-a.plusminus).slice(0,5), 'plusminus');
-  document.getElementById('trophyNhlPIM').innerHTML = renderLeaderList([...players].sort((a,b)=>b.pim-a.pim).slice(0,5), 'pim');
-  document.getElementById('trophyNhlVezina').innerHTML = renderGoalieLeaderList([...goalies].sort((a,b)=>(b.svpct-a.svpct)||(b.w-a.w)).slice(0,5), 'w');
-}
-
-function renderTrophiesLHJMQ() {
-  const players = DATA.players.filter(p => DATA.teams[p.team].division === 'lhjmq');
-  const goalies = DATA.goalies.filter(g => DATA.teams[g.team].division === 'lhjmq');
-  document.getElementById('trophyLhjmqGoals').innerHTML = renderLeaderList([...players].sort((a,b)=>b.g-a.g).slice(0,5), 'g');
-  document.getElementById('trophyLhjmqPoints').innerHTML = renderLeaderList([...players].sort((a,b)=>b.pts-a.pts).slice(0,5), 'pts');
-  document.getElementById('trophyLhjmqAssists').innerHTML = renderLeaderList([...players].sort((a,b)=>b.a-a.a).slice(0,5), 'a');
-  document.getElementById('trophyLhjmqPM').innerHTML = renderLeaderList([...players].sort((a,b)=>b.plusminus-a.plusminus).slice(0,5), 'plusminus');
-  document.getElementById('trophyLhjmqPIM').innerHTML = renderLeaderList([...players].sort((a,b)=>b.pim-a.pim).slice(0,5), 'pim');
-  document.getElementById('trophyLhjmqVezina').innerHTML = renderGoalieLeaderList([...goalies].sort((a,b)=>(b.svpct-a.svpct)||(b.w-a.w)).slice(0,5), 'w');
-}
-
-// SORTING
-function setupSortHandlers() {
-  setupSortFor('#standingsNhlTable', standingsNhlSort, renderStandingsNHL);
-  setupSortFor('#standingsLhjmqTable', standingsLhjmqSort, renderStandingsLHJMQ);
-  setupSortFor('#playersNhlTable', playersNhlSort, renderPlayersNHL);
-  setupSortFor('#playersLhjmqTable', playersLhjmqSort, renderPlayersLHJMQ);
-  setupSortFor('#goaliesNhlTable', goaliesNhlSort, renderGoaliesNHL);
-  setupSortFor('#goaliesLhjmqTable', goaliesLhjmqSort, renderGoaliesLHJMQ);
-}
-
-function setupSortFor(tableSel, sort, rerender) {
-  document.querySelectorAll(`${tableSel} th.sortable`).forEach(th => {
-    th.addEventListener('click', () => {
-      const key = th.dataset.key;
-      if (sort.key === key) sort.dir = sort.dir === 'desc' ? 'asc' : 'desc';
-      else { sort.key = key; sort.dir = 'desc'; }
-      document.querySelectorAll(`${tableSel} th.sortable`).forEach(t => {
-        t.classList.remove('sort-asc', 'sort-desc');
-        if (t.dataset.key === sort.key) t.classList.add(sort.dir === 'desc' ? 'sort-desc' : 'sort-asc');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      portfolioCards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.style.display = match ? 'block' : 'none';
       });
-      rerender();
     });
   });
-}
 
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
-// ============ SYSTÈME ADMIN ============
-
-const ADMIN_PASSWORD = 'lchq-admin-2026';
-let isAdmin = false;
-let editingPlayerId = null;
-let editingGoalieId = null;
-let editingTeamKey = null;
-
-function toggleAdminMode() {
-  if (isAdmin) {
-    // Sortir du mode admin
-    if (confirm('Sortir du mode admin? (Pense à télécharger data.json si tu as fait des modifications!)')) {
-      isAdmin = false;
-      document.body.classList.remove('admin-mode');
-      document.getElementById('adminTrigger').classList.remove('active');
-      document.getElementById('adminTrigger').textContent = '🔒 Admin';
-      document.getElementById('adminDownloadBtn').classList.remove('show');
-    }
-  } else {
-    // Ouvrir modal de connexion
-    document.getElementById('loginError').style.display = 'none';
-    document.getElementById('adminPasswordInput').value = '';
-    openModal('loginModal');
-    setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
-  }
-}
-
-function checkPassword() {
-  const pwd = document.getElementById('adminPasswordInput').value;
-  if (pwd === ADMIN_PASSWORD) {
-    isAdmin = true;
-    document.body.classList.add('admin-mode');
-    document.getElementById('adminTrigger').classList.add('active');
-    document.getElementById('adminTrigger').textContent = '🔓 Admin actif';
-    document.getElementById('adminDownloadBtn').classList.add('show');
-    closeModal('loginModal');
-    // Re-rendre toutes les pages pour afficher les boutons admin
-    rerenderAll();
-  } else {
-    document.getElementById('loginError').style.display = 'block';
-  }
-}
-
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
-// Fermer modal en cliquant à l'extérieur
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('modal-overlay')) {
-    e.target.classList.remove('show');
-  }
-});
-
-// ===== JOUEURS =====
-
-function populateTeamSelect(selectId, division) {
-  const sel = document.getElementById(selectId);
-  sel.innerHTML = '';
-  Object.entries(DATA.teams)
-    .filter(([_, t]) => !division || t.division === division)
-    .sort((a, b) => a[1].name.localeCompare(b[1].name))
-    .forEach(([k, t]) => {
-      const opt = document.createElement('option');
-      opt.value = k;
-      opt.textContent = `${t.emoji} ${t.name}`;
-      sel.appendChild(opt);
+  /* --- FAQ Accordion --- */
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      const item = question.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     });
-}
+  });
 
-function openPlayerModal(playerId, division) {
-  editingPlayerId = playerId;
-  populateTeamSelect('pTeam', division);
-  if (playerId) {
-    const p = DATA.players.find(x => x.id === playerId);
-    document.getElementById('playerModalTitle').textContent = '✏️ Modifier joueur';
-    document.getElementById('pName').value = p.name;
-    document.getElementById('pTeam').value = p.team;
-    document.getElementById('pPosition').value = p.position;
-    document.getElementById('pGp').value = p.gp;
-    document.getElementById('pG').value = p.g;
-    document.getElementById('pA').value = p.a;
-    document.getElementById('pPM').value = p.plusminus;
-    document.getElementById('pPim').value = p.pim;
-    document.getElementById('pShots').value = p.shots;
-    document.getElementById('pShotPct').value = p.shotpct;
-    document.getElementById('pToi').value = p.toi;
-    document.getElementById('pFoPct').value = p.fopct;
-  } else {
-    document.getElementById('playerModalTitle').textContent = '➕ Nouveau joueur';
-    document.getElementById('pName').value = '';
-    document.getElementById('pPosition').value = 'F';
-    ['pGp','pG','pA','pPM','pPim','pShots','pShotPct','pFoPct'].forEach(id => document.getElementById(id).value = 0);
-    document.getElementById('pToi').value = '0:00';
+  /* --- Scroll Reveal --- */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* --- Formspree AJAX --- */
+  const devisForm = document.getElementById('devis-form');
+  const formSuccess = document.getElementById('form-success');
+
+  if (devisForm) {
+    devisForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = devisForm.querySelector('button[type="submit"]');
+      btn.textContent = 'Envoi en cours…';
+      btn.disabled = true;
+      try {
+        const res = await fetch(devisForm.action, {
+          method: 'POST',
+          body: new FormData(devisForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          formSuccess.style.display = 'block';
+          devisForm.reset();
+          btn.textContent = 'Message envoyé ✓';
+        } else {
+          btn.textContent = 'Erreur — réessayez';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Erreur — réessayez';
+        btn.disabled = false;
+      }
+    });
   }
-  openModal('playerModal');
-}
 
-function savePlayer() {
-  const name = document.getElementById('pName').value.trim();
-  if (!name) { alert('Le nom est obligatoire!'); return; }
-  const team = document.getElementById('pTeam').value;
-  if (!team) { alert('Sélectionne une équipe!'); return; }
-  const g = +document.getElementById('pG').value || 0;
-  const a = +document.getElementById('pA').value || 0;
-  const playerData = {
-    name: name,
-    team: team,
-    position: document.getElementById('pPosition').value,
-    gp: +document.getElementById('pGp').value || 0,
-    g: g,
-    a: a,
-    pts: g + a,
-    plusminus: +document.getElementById('pPM').value || 0,
-    pim: +document.getElementById('pPim').value || 0,
-    shots: +document.getElementById('pShots').value || 0,
-    shotpct: +document.getElementById('pShotPct').value || 0,
-    toi: document.getElementById('pToi').value || '0:00',
-    fopct: +document.getElementById('pFoPct').value || 0
-  };
-  if (editingPlayerId) {
-    const idx = DATA.players.findIndex(x => x.id === editingPlayerId);
-    DATA.players[idx] = { ...DATA.players[idx], ...playerData };
-  } else {
-    const newId = 'p' + (Math.max(0, ...DATA.players.map(p => parseInt(p.id.replace('p',''))||0)) + 1);
-    DATA.players.push({ id: newId, ...playerData });
-  }
-  closeModal('playerModal');
-  rerenderAll();
-}
-
-function confirmDeletePlayer(id) {
-  const p = DATA.players.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('confirmMessage').textContent = `Supprimer le joueur "${p.name}"? Cette action ne peut pas être annulée.`;
-  document.getElementById('confirmActionBtn').onclick = () => {
-    DATA.players = DATA.players.filter(x => x.id !== id);
-    closeModal('confirmModal');
-    rerenderAll();
-  };
-  openModal('confirmModal');
-}
-
-// ===== GARDIENS =====
-
-function openGoalieModal(goalieId, division) {
-  editingGoalieId = goalieId;
-  populateTeamSelect('gTeam', division);
-  if (goalieId) {
-    const g = DATA.goalies.find(x => x.id === goalieId);
-    document.getElementById('goalieModalTitle').textContent = '✏️ Modifier gardien';
-    document.getElementById('gName').value = g.name;
-    document.getElementById('gTeam').value = g.team;
-    document.getElementById('gGp').value = g.gp;
-    document.getElementById('gW').value = g.w;
-    document.getElementById('gL').value = g.l;
-    document.getElementById('gOtl').value = g.otl;
-    document.getElementById('gGaa').value = g.gaa;
-    document.getElementById('gSvPct').value = g.svpct;
-    document.getElementById('gSo').value = g.so;
-    document.getElementById('gSa').value = g.sa;
-    document.getElementById('gSv').value = g.sv;
-  } else {
-    document.getElementById('goalieModalTitle').textContent = '➕ Nouveau gardien';
-    document.getElementById('gName').value = '';
-    ['gGp','gW','gL','gOtl','gGaa','gSvPct','gSo','gSa','gSv'].forEach(id => document.getElementById(id).value = 0);
-  }
-  openModal('goalieModal');
-}
-
-function saveGoalie() {
-  const name = document.getElementById('gName').value.trim();
-  if (!name) { alert('Le nom est obligatoire!'); return; }
-  const team = document.getElementById('gTeam').value;
-  if (!team) { alert('Sélectionne une équipe!'); return; }
-  const goalieData = {
-    name: name,
-    team: team,
-    gp: +document.getElementById('gGp').value || 0,
-    w: +document.getElementById('gW').value || 0,
-    l: +document.getElementById('gL').value || 0,
-    otl: +document.getElementById('gOtl').value || 0,
-    gaa: +document.getElementById('gGaa').value || 0,
-    svpct: +document.getElementById('gSvPct').value || 0,
-    so: +document.getElementById('gSo').value || 0,
-    sa: +document.getElementById('gSa').value || 0,
-    sv: +document.getElementById('gSv').value || 0
-  };
-  if (editingGoalieId) {
-    const idx = DATA.goalies.findIndex(x => x.id === editingGoalieId);
-    DATA.goalies[idx] = { ...DATA.goalies[idx], ...goalieData };
-  } else {
-    const newId = 'g' + (Math.max(0, ...DATA.goalies.map(g => parseInt(g.id.replace('g',''))||0)) + 1);
-    DATA.goalies.push({ id: newId, ...goalieData });
-  }
-  closeModal('goalieModal');
-  rerenderAll();
-}
-
-function confirmDeleteGoalie(id) {
-  const g = DATA.goalies.find(x => x.id === id);
-  if (!g) return;
-  document.getElementById('confirmMessage').textContent = `Supprimer le gardien "${g.name}"? Cette action ne peut pas être annulée.`;
-  document.getElementById('confirmActionBtn').onclick = () => {
-    DATA.goalies = DATA.goalies.filter(x => x.id !== id);
-    closeModal('confirmModal');
-    rerenderAll();
-  };
-  openModal('confirmModal');
-}
-
-// ===== ÉQUIPES (CLASSEMENT) =====
-
-function openTeamModal(teamKey) {
-  editingTeamKey = teamKey;
-  const t = DATA.teams[teamKey];
-  document.getElementById('teamModalTitle').innerHTML = `✏️ ${t.emoji} ${t.name}`;
-  document.getElementById('teamModalSubtitle').innerHTML = `${t.city} · Division ${t.division.toUpperCase()}`;
-  document.getElementById('tGp').value = t.record.gp;
-  document.getElementById('tW').value = t.record.w;
-  document.getElementById('tL').value = t.record.l;
-  document.getElementById('tOtl').value = t.record.otl;
-  document.getElementById('tSol').value = t.record.sol;
-  document.getElementById('tGf').value = t.record.gf;
-  document.getElementById('tGa').value = t.record.ga;
-  document.getElementById('tStreak').value = t.record.streak;
-  openModal('teamModal');
-}
-
-function saveTeam() {
-  const t = DATA.teams[editingTeamKey];
-  const w = +document.getElementById('tW').value || 0;
-  const otl = +document.getElementById('tOtl').value || 0;
-  const sol = +document.getElementById('tSol').value || 0;
-  t.record.gp = +document.getElementById('tGp').value || 0;
-  t.record.w = w;
-  t.record.l = +document.getElementById('tL').value || 0;
-  t.record.otl = otl;
-  t.record.sol = sol;
-  t.record.gf = +document.getElementById('tGf').value || 0;
-  t.record.ga = +document.getElementById('tGa').value || 0;
-  t.record.streak = document.getElementById('tStreak').value || '-';
-  t.record.pts = w * 2 + otl + sol;
-  closeModal('teamModal');
-  rerenderAll();
-}
-
-// ===== TÉLÉCHARGEMENT data.json =====
-
-function downloadDataJson() {
-  const json = JSON.stringify(DATA, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'data.json';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  alert('✅ Fichier data.json téléchargé!\n\nProchaine étape:\n1. Va sur https://github.com/ultra631/LCHQ\n2. Clique sur data.json\n3. Crayon ✏️ → Ctrl+A → Delete\n4. Ouvre le fichier téléchargé avec Bloc-notes, Ctrl+A, Ctrl+C\n5. Reviens sur GitHub et Ctrl+V\n6. Commit changes\n\nLe site sera mis à jour en 1-2 minutes!');
-}
-
-// ===== RE-RENDU GLOBAL =====
-
-function rerenderAll() {
-  renderHome();
-  renderStandingsNHL();
-  renderStandingsLHJMQ();
-  renderPlayersNHL();
-  renderPlayersLHJMQ();
-  renderGoaliesNHL();
-  renderGoaliesLHJMQ();
-  renderTeamsGrids();
-  renderTrophiesNHL();
-  renderTrophiesLHJMQ();
-}
-
-loadData();
+  /* --- Année footer --- */
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
-
 </body>
 </html>
