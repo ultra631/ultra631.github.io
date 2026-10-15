@@ -185,6 +185,18 @@ footer a:hover{color:var(--ink)}
 .care li{display:flex;gap:10px}
 .care li::before{content:"✓";color:var(--sun);font-weight:800}
 @media(max-width:860px){.care{grid-template-columns:1fr}.care > div + div{border-left:0;border-top:1px solid #2A3446}}
+
+#apropos{border-top:1px solid var(--line)}
+.about{display:grid;grid-template-columns:260px 1fr;gap:56px;align-items:center}
+.portrait{width:260px;aspect-ratio:1;border-radius:24px;background:var(--cobalt) center/cover no-repeat;display:grid;place-items:center;color:#fff;font-size:120px;font-weight:900;letter-spacing:-.05em;transform:rotate(-2deg);box-shadow:0 24px 50px -26px rgba(18,26,38,.55)}
+.about h2{font-size:clamp(32px,4.4vw,52px);letter-spacing:-.04em;line-height:1.02;font-weight:900;margin-bottom:18px}
+.about p{color:var(--muted);max-width:58ch;margin-bottom:14px;font-size:18px}
+.about .sig{color:var(--ink);font-weight:700;font-size:18px;margin-top:6px}
+@media(max-width:760px){.about{grid-template-columns:1fr;gap:28px}.portrait{width:180px;font-size:84px}}
+.cbox .mail{font-size:clamp(20px,2.4vw,26px);font-weight:800;letter-spacing:-.02em;color:#fff;text-decoration:none;border-bottom:3px solid var(--sun);padding-bottom:2px;word-break:break-all}
+.cbox .mail:hover{color:var(--sun)}
+.cbox .btn.light{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.cbox .btn.light:hover{background:#fff;color:var(--ink);border-color:#fff}
 </style>
 </head>
 <body>
@@ -195,6 +207,7 @@ footer a:hover{color:var(--ink)}
     <ul>
       <li><a href="#travaux"><span data-fr>Travaux</span><span data-en>Work</span></a></li>
       <li><a href="#offres"><span data-fr>Offres</span><span data-en>Pricing</span></a></li>
+      <li><a href="#apropos"><span data-fr>À propos</span><span data-en>About</span></a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <button class="lang" id="lang" type="button" aria-label="Change language">EN</button>
@@ -355,6 +368,18 @@ footer a:hover{color:var(--ink)}
   </div>
 </section>
 
+<section id="apropos">
+  <div class="wrap about">
+    <div class="portrait" role="img" aria-label="Kevin">K</div>
+    <div>
+      <h2><span data-fr>Un développeur d'ici, joignable directement</span><span data-en>A local developer you can reach directly</span></h2>
+      <p><span data-fr>Je m'appelle Kevin et je vis au Québec. J'ai commencé par bâtir des sites pour ce que je connais de près : une ligue de hockey en ligne et le salon de quilles où je travaille.</span><span data-en>I'm Kevin and I live in Quebec. I started by building sites for things I know up close: an online hockey league and the bowling center where I work.</span></p>
+      <p><span data-fr>Aujourd'hui, je fais la même chose pour les commerces d'ici : des sites clairs, livrés vite, que vous comprenez et qui vous appartiennent. Vous parlez à la personne qui fait le travail, du premier message à la mise en ligne.</span><span data-en>Today I do the same for local businesses: clear sites, delivered fast, that you understand and own. You talk to the person doing the work, from the first message to launch.</span></p>
+      <div class="sig">Kevin D., Ultracodage</div>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
     <div class="head"><h2><span data-fr>Questions fréquentes</span><span data-en>Common questions</span></h2></div>
@@ -378,8 +403,9 @@ footer a:hover{color:var(--ink)}
         <p><span data-fr>Dites-moi ce que fait votre commerce. Je vous réponds avec l'offre qui vous convient et un délai précis.</span><span data-en>Tell me what your business does. I'll reply with the right package and a clear timeline.</span></p>
       </div>
       <div class="acts">
-        <a class="btn" href="https://www.fiverr.com/ultracodage" target="_blank" rel="noopener"><span data-fr>M'écrire sur Fiverr</span><span data-en>Message me on Fiverr</span></a>
-        <span class="alt"><span data-fr>Paiement protégé par Fiverr. Réponse rapide, en français ou en anglais.</span><span data-en>Payment protected by Fiverr. Quick reply, in French or English.</span></span>
+        <a class="mail" href="mailto:ultracodage@gmail.com">ultracodage@gmail.com</a>
+        <a class="btn light" href="https://www.fiverr.com/ultracodage" target="_blank" rel="noopener"><span data-fr>Ou commander sur Fiverr</span><span data-en>Or order on Fiverr</span></a>
+        <span class="alt"><span data-fr>Réponse rapide, en français ou en anglais. Sur Fiverr, le paiement est protégé.</span><span data-en>Quick reply, in French or English. On Fiverr, payment is protected.</span></span>
       </div>
     </div>
   </div>
@@ -389,7 +415,7 @@ footer a:hover{color:var(--ink)}
 <footer>
   <div class="wrap">
     <span>© <span id="y"></span> Ultracodage, Québec</span>
-    <nav aria-label="Liens"><a href="https://www.fiverr.com/ultracodage" target="_blank" rel="noopener">Fiverr</a><a href="https://github.com/ultra631" target="_blank" rel="noopener">GitHub</a></nav>
+    <nav aria-label="Liens"><a href="mailto:ultracodage@gmail.com">ultracodage@gmail.com</a><a href="https://www.fiverr.com/ultracodage" target="_blank" rel="noopener">Fiverr</a><a href="https://github.com/ultra631" target="_blank" rel="noopener">GitHub</a></nav>
   </div>
 </footer>
 
