@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ultracodage, sites web pour les commerces d'ici</title>
-<meta name="description" content="Ultracodage : sites web clairs, rapides et adaptés aux cellulaires pour les commerces, salons et ligues du Québec. Français et anglais.">
-<meta property="og:title" content="Ultracodage, sites web pour les commerces d'ici">
+<title>Ultracodage, sites web pour les petits commerces</title>
+<meta name="description" content="Ultracodage : sites web clairs, rapides et adaptés aux cellulaires pour les petits commerces, salons et ligues. Basé au Québec, en français et en anglais.">
+<meta property="og:title" content="Ultracodage, sites web pour les petits commerces">
 <meta property="og:description" content="Sites web clairs, rapides et adaptés aux cellulaires. Français et anglais.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -219,8 +219,8 @@ footer a:hover{color:var(--ink)}
 <section class="hero">
   <div class="wrap">
     <div>
-      <h1><span data-fr>Des sites web clairs pour les commerces d'ici.</span><span data-en>Clear websites for local businesses.</span></h1>
-      <p class="lede"><span data-fr>Je conçois et mets en ligne des sites rapides et faciles à lire sur cellulaire, pour les commerces, les salons et les ligues du Québec. En français et en anglais, et le site vous appartient.</span><span data-en>I design and launch fast websites that read well on any phone, for businesses, venues and leagues in Quebec. In French and English, and the site is yours.</span></p>
+      <h1><span data-fr>Des sites web clairs pour les petits commerces.</span><span data-en>Clear websites for small businesses.</span></h1>
+      <p class="lede"><span data-fr>Je conçois et mets en ligne des sites rapides et faciles à lire sur cellulaire, pour les commerces, les salons et les ligues. Basé au Québec, je travaille avec des clients d'ici et d'ailleurs, en français et en anglais. Et le site vous appartient.</span><span data-en>I design and launch fast websites that read well on any phone, for businesses, venues and leagues. Based in Quebec, I work with clients here and abroad, in French and English. And the site is yours.</span></p>
       <div class="ctas">
         <a class="btn primary" href="#contact"><span data-fr>Démarrer un projet</span><span data-en>Start a project</span></a>
         <a class="btn ghost" href="#travaux"><span data-fr>Voir les sites en ligne</span><span data-en>See live sites</span></a>
@@ -372,10 +372,10 @@ footer a:hover{color:var(--ink)}
   <div class="wrap about">
     <div class="portrait" role="img" aria-label="Kevin">K</div>
     <div>
-      <h2><span data-fr>Un développeur d'ici, joignable directement</span><span data-en>A local developer you can reach directly</span></h2>
+      <h2><span data-fr>Un développeur que vous joignez directement</span><span data-en>A developer you reach directly</span></h2>
       <p><span data-fr>Je m'appelle Kevin et je vis au Québec. J'ai commencé par bâtir des sites pour ce que je connais de près : une ligue de hockey en ligne et le salon de quilles où je travaille.</span><span data-en>I'm Kevin and I live in Quebec. I started by building sites for things I know up close: an online hockey league and the bowling center where I work.</span></p>
-      <p><span data-fr>Aujourd'hui, je fais la même chose pour les commerces d'ici : des sites clairs, livrés vite, que vous comprenez et qui vous appartiennent. Vous parlez à la personne qui fait le travail, du premier message à la mise en ligne.</span><span data-en>Today I do the same for local businesses: clear sites, delivered fast, that you understand and own. You talk to the person doing the work, from the first message to launch.</span></p>
-      <div class="sig">Kevin D., Ultracodage</div>
+      <p><span data-fr>Aujourd'hui, je fais la même chose pour des commerces d'ici et d'ailleurs : des sites clairs, livrés vite, que vous comprenez et qui vous appartiennent. Vous parlez à la personne qui fait le travail, du premier message à la mise en ligne.</span><span data-en>Today I do the same for businesses near and far: clear sites, delivered fast, that you understand and own. You talk to the person doing the work, from the first message to launch.</span></p>
+      <div class="sig">Kevin D., Ultracodage, Québec</div>
     </div>
   </div>
 </section>
@@ -422,7 +422,7 @@ footer a:hover{color:var(--ink)}
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
 const root=document.documentElement,btn=document.getElementById('lang');
-function setLang(l){root.lang=l;btn.textContent=l==='fr'?'EN':'FR';document.title=l==='fr'?"Ultracodage, sites web pour les commerces d'ici":"Ultracodage, websites for local businesses";try{localStorage.setItem('lang',l)}catch(e){}}
+function setLang(l){root.lang=l;btn.textContent=l==='fr'?'EN':'FR';document.title=l==='fr'?"Ultracodage, sites web pour les petits commerces":"Ultracodage, websites for small businesses";try{localStorage.setItem('lang',l)}catch(e){}}
 let saved=null;try{saved=localStorage.getItem('lang')}catch(e){}
 setLang(saved||((navigator.language||'fr').toLowerCase().startsWith('fr')?'fr':'en'));
 btn.addEventListener('click',()=>setLang(root.lang==='fr'?'en':'fr'));
