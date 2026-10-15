@@ -197,6 +197,32 @@ footer a:hover{color:var(--ink)}
 .cbox .mail:hover{color:var(--sun)}
 .cbox .btn.light{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
 .cbox .btn.light:hover{background:#fff;color:var(--ink);border-color:#fff}
+
+/* ---------- motion ---------- */
+.stat{display:flex;align-items:baseline;gap:10px;margin:0 0 18px;padding:12px 16px;border-left:3px solid var(--sun);background:#fff;border-radius:0 10px 10px 0;max-width:max-content}
+.stat b{font-size:30px;font-weight:900;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:15px}
+.fan .layer{position:absolute;inset:0;transition:transform .25s ease-out}
+.work .media .win{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.work .media:hover .win:not(.inset){transform:translateY(-8px) rotate(-.6deg);box-shadow:0 44px 70px -30px rgba(18,26,38,.5),0 8px 18px -10px rgba(18,26,38,.2)}
+.work .media .shot{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.work .media:hover .shot{transform:scale(1.03)}
+@media (prefers-reduced-motion:no-preference){
+  .js .work .media{opacity:0;transform:translateX(-60px) rotate(-2deg);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+  .js .work:nth-of-type(even) .media{transform:translateX(60px) rotate(2deg)}
+  .js .work .copy{opacity:0;transform:translateY(24px);transition:opacity .7s .15s ease,transform .7s .15s ease}
+  .js .work.in .media,.js .work.in .copy{opacity:1;transform:none}
+  .js .step{border-top-color:transparent;position:relative}
+  .js .step::after{content:"";position:absolute;left:0;top:-3px;height:3px;width:0;background:var(--ink);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .js .steps.in .step::after{width:100%}
+  .js .steps.in .step:nth-child(2)::after{transition-delay:.15s}
+  .js .steps.in .step:nth-child(3)::after{transition-delay:.3s}
+  .js .offer{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+  .js .offers.in .offer{opacity:1;transform:none}
+  .js .offers.in .offer:nth-child(2){transition-delay:.1s}
+  .js .offers.in .offer:nth-child(3){transition-delay:.2s}
+}
+@media (prefers-reduced-motion:reduce){.fan .layer{transition:none}}
 </style>
 </head>
 <body>
@@ -232,10 +258,10 @@ footer a:hover{color:var(--ink)}
       </div>
     </div>
     <div class="fan" aria-hidden="true">
-      <div class="win w1"><div class="bar"><i></i><i></i><i></i><span>dynastyhockeyleague.net</span></div><div class="shot s-dynasty"></div></div>
-      <div class="win w2"><div class="bar"><i></i><i></i><i></i><span>ultra631.github.io/temple-300</span></div><div class="shot s-temple"></div></div>
-      <div class="win w3"><div class="bar"><i></i><i></i><i></i><span>ultra631.github.io/express-net</span></div><div class="shot s-express"></div></div>
-      <div class="sticker"><span data-fr>Fait au Québec</span><span data-en>Made in Quebec</span></div>
+      <div class="layer" data-depth="6"><div class="win w1"><div class="bar"><i></i><i></i><i></i><span>dynastyhockeyleague.net</span></div><div class="shot s-dynasty"></div></div></div>
+      <div class="layer" data-depth="12"><div class="win w2"><div class="bar"><i></i><i></i><i></i><span>ultra631.github.io/temple-300</span></div><div class="shot s-temple"></div></div></div>
+      <div class="layer" data-depth="20"><div class="win w3"><div class="bar"><i></i><i></i><i></i><span>ultra631.github.io/express-net</span></div><div class="shot s-express"></div></div></div>
+      <div class="layer" data-depth="28"><div class="sticker"><span data-fr>Fait au Québec</span><span data-en>Made in Quebec</span></div></div>
     </div>
   </div>
 </section>
@@ -252,9 +278,10 @@ footer a:hover{color:var(--ink)}
         <div class="win"><div class="bar"><i></i><i></i><i></i><span>ultra631.github.io/express-net</span></div><div class="shot s-express"></div></div>
         <div class="win inset"><div class="bar"><i></i><i></i><i></i><span><span data-fr>Forfaits</span><span data-en>Packages</span></span></div><div class="shot s-forfaits"></div></div>
       </a>
-      <div>
+      <div class="copy">
         <h3>Lave-Auto Express.Net</h3>
         <div class="who"><span data-fr>Lave-auto ouvert 24/7, Montréal</span><span data-en>24/7 car wash, Montreal</span></div>
+        <div class="stat"><b data-count="725">725</b><span data-fr>avis Google mis de l'avant</span><span data-en>Google reviews put up front</span></div>
         <p><span data-fr>Un site qui répond aux trois questions d'un automobiliste pressé : combien ça coûte, est-ce ouvert, comment m'y rendre.</span><span data-en>A site that answers a busy driver's three questions: how much, is it open, how do I get there.</span></p>
         <ul>
           <li><span data-fr>Forfaits et options présentés clairement, le plus populaire mis en valeur</span><span data-en>Packages and options laid out clearly, most popular highlighted</span></li>
@@ -269,9 +296,10 @@ footer a:hover{color:var(--ink)}
       <a class="media" href="https://ultra631.github.io/temple-300/" target="_blank" rel="noopener">
         <div class="win"><div class="bar"><i></i><i></i><i></i><span>ultra631.github.io/temple-300</span></div><div class="shot s-temple"></div></div>
       </a>
-      <div>
+      <div class="copy">
         <h3>Le Temple des 300</h3>
         <div class="who"><span data-fr>Salon de Quilles Le Domaine, Montréal</span><span data-en>Salon de Quilles Le Domaine, Montreal</span></div>
+        <div class="stat"><b data-count="113">113</b><span data-fr>séries de 800 au palmarès</span><span data-en>800 series in the hall of fame</span></div>
         <p><span data-fr>Le mur d'honneur du salon : chaque partie parfaite et chaque série de 800 de ses ligues, consultable par joueur, par ligue et par saison.</span><span data-en>The bowling center's hall of fame: every perfect game and 800 series from its leagues, searchable by player, league and season.</span></p>
         <ul>
           <li><span data-fr>Recherche et filtres instantanés, palmarès des joueurs</span><span data-en>Instant search and filters, player rankings</span></li>
@@ -286,9 +314,10 @@ footer a:hover{color:var(--ink)}
       <a class="media" href="https://dynastyhockeyleague.net/" target="_blank" rel="noopener">
         <div class="win"><div class="bar"><i></i><i></i><i></i><span>dynastyhockeyleague.net</span></div><div class="shot s-dynasty"></div></div>
       </a>
-      <div>
+      <div class="copy">
         <h3>Dynasty Hockey League</h3>
         <div class="who"><span data-fr>Ligue de hockey en ligne, 8 équipes</span><span data-en>Online hockey league, 8 teams</span></div>
+        <div class="stat"><b data-count="8">8</b><span data-fr>équipes suivies chaque soir de ligue</span><span data-en>teams tracked every league night</span></div>
         <p><span data-fr>La plateforme complète d'une ligue : tout ce que les joueurs consultent entre deux matchs, mis à jour chaque soir de ligue.</span><span data-en>A league's full platform: everything players check between games, updated every league night.</span></p>
         <ul>
           <li><span data-fr>Calendrier, résultats, classements et séries</span><span data-en>Schedule, scores, standings and playoffs</span></li>
@@ -420,6 +449,26 @@ footer a:hover{color:var(--ink)}
 </footer>
 
 <script>
+document.documentElement.classList.add('js');
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io='IntersectionObserver' in window?new IntersectionObserver((es)=>{es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('[data-count]').forEach(count);io.unobserve(e.target)})},{threshold:.22}):null;
+  document.querySelectorAll('.work,.steps,.offers').forEach(el=>io?io.observe(el):el.classList.add('in'));
+  function count(el){
+    const end=+el.dataset.count; if(reduce||end<10){el.textContent=end;return}
+    const t0=performance.now(),d=1200;
+    (function tick(n){const p=Math.min(1,(n-t0)/d),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v;if(p<1)requestAnimationFrame(tick)})(t0);
+  }
+  const fan=document.querySelector('.fan');
+  if(fan&&!reduce&&matchMedia('(pointer:fine)').matches){
+    const layers=[...fan.querySelectorAll('.layer')];
+    window.addEventListener('mousemove',e=>{
+      const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
+      layers.forEach(l=>{const d=+l.dataset.depth;l.style.transform=`translate(${x*-d}px,${y*-d}px)`});
+    },{passive:true});
+  }
+})();
+
 document.getElementById('y').textContent=new Date().getFullYear();
 const root=document.documentElement,btn=document.getElementById('lang');
 function setLang(l){root.lang=l;btn.textContent=l==='fr'?'EN':'FR';document.title=l==='fr'?"Ultracodage, sites web pour les petits commerces":"Ultracodage, websites for small businesses";try{localStorage.setItem('lang',l)}catch(e){}}
